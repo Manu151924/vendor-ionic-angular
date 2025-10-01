@@ -1,0 +1,7 @@
+{
+  "name": "vendor",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
