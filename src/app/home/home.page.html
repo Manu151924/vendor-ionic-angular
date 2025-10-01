@@ -1,20 +1,42 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-segment [(ngModel)]="segment" class="custom-segment">
+      <ion-segment-button value="booking">BOOKING</ion-segment-button>
+      <ion-segment-button value="delivery" color="success">DELIVERY</ion-segment-button>
+    </ion-segment>
+
+    <ion-button fill="clear" slot="end">
+      <ion-icon name="notifications-outline"></ion-icon>
+      @if (notificationsCount > 0) {
+        <ion-badge color="danger" style="margin-top: -20px;">{{ notificationsCount }}</ion-badge>
+      }
+    </ion-button>
   </ion-toolbar>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content>
+  @if (segment === 'booking') {
+    <app-booking></app-booking>
+  } @else if (segment === 'delivery') {
+    <app-delivery></app-delivery>
+  }
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar class="custom-tab-bar">
+    <ion-buttons class="nav-buttons">
+      <ion-button fill="clear" routerLink="/task" routerDirection="root" class="nav-btn">
+        <ion-icon name="checkmark-done"></ion-icon>
+        <ion-label>Task</ion-label>
+        <ion-badge color="warning" class="badge">10</ion-badge>
+      </ion-button>
+      <ion-button fill="clear" routerLink="/home" routerDirection="root" class="nav-btn">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Home</ion-label>
+      </ion-button>
+      <ion-button fill="clear" routerLink="/account" routerDirection="root" class="nav-btn">
+        <ion-icon name="person"></ion-icon>
+        <ion-label>Account</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
