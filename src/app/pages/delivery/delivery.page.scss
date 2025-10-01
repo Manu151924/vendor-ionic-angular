@@ -93,18 +93,12 @@ background: #565656;
 
 .today-btn {
   border-radius: 0 7px 7px 0 !important;
-  margin-left: 0;
-  height: 38px;
-  font-size: 15px;
-  font-weight: bold;
-  min-width: 88px;
-  padding: 0 18px;
-  box-shadow: none;
-  --box-shadow: none;
-  --background: #17a04d;
-  --color: #fff;
-  display: flex;
-  align-items: center;
+    margin-left: 0;
+    height: 38px;
+    --background: #17a04d;
+    --color: #fff;
+    display: flex;
+    align-items: center !important;
 }
 
 .note {

@@ -1,0 +1,156 @@
+
+
+.card-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.summary-card {
+  border-radius: 14px;
+  box-shadow: 0 2px 10px #e8e8e8;
+  padding: 12px 16px;
+  margin-bottom: 9px;
+  background: #fff;
+}
+.card-icon-wrap {
+  background: #f3f3ec;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: #909090;
+}
+.card-icon-wrap.green {
+  background: #eaf7ea;
+  color: #45bf55;
+}
+.card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.card-main {
+  font-size: 20px;
+  font-weight: bold;
+}
+.card-main.red {
+  color: #e53935;
+}
+.card-main.green {
+  color: #45bf55;
+}
+.percent, .decimal {
+  font-size: 12px;
+  font-weight: 400;
+  vertical-align: super;
+}
+.card-label {
+  color: #383838;
+  font-size: 12px;
+  margin-top: 1px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+
+
+
+.snapshot-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 10px #ebebeb;
+  padding: 15px 16px 12px 16px;
+  background: #fff;
+  min-width: 350px;
+}
+.snapshot-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.snapshot-title { font-weight: 600; color: #444; font-size: 15px; }
+.snapshot-dropdown {   border-radius: 0 7px 7px 0 !important;
+    margin-left: 0;
+    height: 38px;
+    --background: #17a04d;
+    color: #fff;
+    width: 98px;
+    display: flex;
+    align-items: center !important; 
+}
+
+.snapshot-content {
+  display: flex;
+  gap: 12px;
+}
+.donut-section {
+  min-width: 100px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.donut-center-text {
+  position: absolute;
+  top: 35px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+.donut-value {
+  font-size: 20px;
+  font-weight: bold;
+  color: #212121;
+}
+.donut-label {
+  font-size: 11px;
+  color: #f39c12;
+  font-weight: 600;
+}
+.donut-legend2 {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #1d1d1d;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.donut-stat-label {
+  font-weight: 500;
+  color: #232323;
+}
+.donut-stat-value {
+  color: #32917a;
+}
+.snapshot-bars2 {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 14px;
+}
+.bar-section {
+  margin-bottom: 2px;
+}
+.bar-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #181818;
+}
+.bar-bg2 {
+  width: 180px;
+  height: 13px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ededed;
+  margin-top: 4px;
+}
+.bar-fill2 {
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.65s;
+}
+.bar-percentage {
+  font-weight: 500;
+  font-size: 13px;
+}

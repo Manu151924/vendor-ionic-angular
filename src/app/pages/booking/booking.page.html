@@ -1,0 +1,172 @@
+  <div class="inventory-box">
+      <ion-card class="inventory-card">
+        <div class="card-header">
+            <ion-chip color="success" class="branch-chip">
+              <ion-icon name="location" class="location"></ion-icon>
+              {{ selectedBranch }}
+            </ion-chip>
+          <div class="waybill-box">
+          <p class="asx">
+            Assigned SFX 
+            <span class="sfx-number" (click)="openSfxModal()">20</span>
+          </p>    
+        </div>
+        </div>
+     <div class="card-content">
+    <div class="chart-container">
+      <div *ngFor="let item of chartData" class="chart-item" (click)="openModal(item.name)">
+        <ngx-charts-bar-horizontal
+          [results]="chartData"
+          [scheme]="colorScheme"
+          [animations]="false"
+          [gradient]="false"
+          [roundEdges]="true"
+          [xAxis]="false"
+          [yAxis]="false"
+          [showDataLabel]="true"
+          [dataLabelFormatting]="dataLabelFormatting"
+          [barPadding]="10"
+          [tooltipDisabled]="true"
+          [view]="[300, 50]"> <!-- Adjusted height for single bar -->
+        </ngx-charts-bar-horizontal>
+        <span class="label">{{ item.name }}</span>
+        <span class="value" (click)="openModal(item.name, $event)">{{ item.value }}</span>
+      </div>
+    </div>
+  </div>
+      </ion-card>
+  </div>
+
+
+<ion-grid class="summary-grid">
+  <ion-row>
+    <ion-col size="6">
+      <ion-card class="summary-card">
+        <div class="card-row">
+          <div class="card-icon-wrap">
+            <ion-icon name="swap-horizontal-outline"></ion-icon>
+          </div>
+          <div class="card-info">
+            <div class="card-main red">3</div>
+            <div class="card-label">Interchange Waybill's</div>
+          </div>
+        </div>
+      </ion-card>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card class="summary-card">
+        <div class="card-row">
+          <div class="card-icon-wrap">
+            <ion-icon name="bus-outline"></ion-icon>
+          </div>
+          <div class="card-info">
+            <div class="card-main red">3</div>
+            <div class="card-label">Market Veh. Req.</div>
+          </div>
+        </div>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6">
+      <ion-card class="summary-card">
+        <div class="card-row">
+
+          <div class="card-info">
+            <div class="card-main red">₹ 23,50,000.<span class="decimal">00</span></div>
+            <div class="card-label">Paid Outstanding</div>
+          </div>
+        </div>
+      </ion-card>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card class="summary-card">
+        <div class="card-row">
+          <div class="card-icon-wrap green">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+          </div>
+          <div class="card-info">
+            <div class="card-main green">62<span class="percent">%</span></div>
+            <div class="card-label">Weight Volume</div>
+          </div>
+        </div>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-card class="snapshot-card">
+  <div class="snapshot-header">
+    <span class="snapshot-title">Month Wise Snapshot</span>
+    <ion-select   class="snapshot-dropdown" fill="solid" color="success" size="small"[(ngModel)]="selectedMonth" interface="popover" (ionChange)="loadDataForMonth(selectedMonth)">
+      <ion-select-option *ngFor="let month of validMonths" [value]="month">{{ month }}</ion-select-option>
+    </ion-select>
+  </div>
+  <div class="snapshot-content">
+    <div class="donut-section">
+      <ngx-charts-pie-chart
+        [results]="pieChartData"
+        [scheme]="colorSchemeForPie"
+        [doughnut]="true"
+        [labels]="false"
+        [legend]="false"
+        [view]="[110,110]">
+      </ngx-charts-pie-chart>
+      <div class="donut-center-text">
+        <div class="donut-value">{{ totalWaybill }}</div>
+        <div class="donut-label">BOOKED</div>
+      </div>
+      <div class="donut-legend2">
+        <div>
+          <span class="donut-stat-label">Edited Waybill</span>
+          <span class="donut-stat-value">WB: {{ editedWaybill }}</span>
+        </div>
+        <div>
+          <span class="donut-stat-label">Un-Edited Waybill</span>
+          <span class="donut-stat-value">WB: {{ totalWaybill - editedWaybill }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="snapshot-bars2">
+      <div class="bar-section">
+        <div class="bar-label-row">
+          <span>Weight Volume</span>
+          <span class="bar-percentage"
+            [ngStyle]="{ color: getColorForWeightVolume(getWeightVolumePercent()) }">
+            {{ getWeightVolumePercent() }}%
+          </span>
+        </div>
+        <div class="bar-bg2">
+          <div class="bar-fill2"
+            [ngStyle]="{ width: getWeightVolumePercent() + '%', background: getGradientForWeightVolume(getWeightVolumePercent()) }"></div>
+        </div>
+      </div>
+      <div class="bar-section">
+        <div class="bar-label-row">
+          <span>Interchange Waybills</span>
+          <span class="bar-percentage"
+            [ngStyle]="{ color: getColorForInterchange(getInterchangePercent()) }">
+            {{ getInterchangePercent() }}%
+          </span>
+        </div>
+        <div class="bar-bg2">
+          <div class="bar-fill2"
+            [ngStyle]="{ width: getInterchangePercent() + '%', background: getGradientForInterchange(getInterchangePercent()) }"></div>
+        </div>
+      </div>
+      <div class="bar-section">
+        <div class="bar-label-row">
+          <span>Market Vehicle Usage</span>
+          <span class="bar-percentage"
+            [ngStyle]="{ color: getColorForMarketVehicleUsage(getMarketVehicleUsagePercent()) }">
+            {{ getMarketVehicleUsagePercent() }}%
+          </span>
+        </div>
+        <div class="bar-bg2">
+          <div class="bar-fill2"
+            [ngStyle]="{ width: getMarketVehicleUsagePercent() + '%', background: getGradientForMarketVehicleUsage(getMarketVehicleUsagePercent()) }"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-card>

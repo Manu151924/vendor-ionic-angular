@@ -1,0 +1,50 @@
+.sfx-modal {
+  ion-header {
+    ion-toolbar {
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+      background: #e4f3e8; // Soft green
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      ion-title {
+        color: #22b34a;
+        font-weight: 700;
+        font-size: 18px;
+      }
+      ion-button {
+        color: #22b34a;
+        font-weight: 600;
+      }
+    }
+  }
+
+  ion-content {
+    --background: #f6fbf7;
+    padding: 0 10px 16px 10px;
+    ion-list {
+      margin-top: 12px;
+    }
+    ion-item {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(34, 179, 74, 0.09);
+      margin-bottom: 10px;
+      ion-label {
+        h2 {
+          color: #22b34a;
+          font-size: 16px;
+          font-weight: 700;
+          margin-bottom: 4px;
+        }
+        p {
+          color: #323232;
+          font-size: 15px;
+          margin-bottom: 3px;
+        }
+        small {
+          color: #888;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}
