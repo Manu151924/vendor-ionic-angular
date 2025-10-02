@@ -154,3 +154,123 @@
   font-weight: 500;
   font-size: 13px;
 }
+.inventory-card{
+    border-radius: 18px;
+  padding: 10px;
+  background: #fff;
+  border: 12px solid #17a04d;
+  margin: 16px;
+  position: relative;
+}
+.custom-dropdown {
+    border: 4px solid #17a04d;
+    border-radius: 18px;
+    max-width: 10rem;
+    left: -16px;
+    top: -21px;
+    --background: transparent;
+}
+.custom-dropdown ion-icon {
+  font-size: 20px;
+  margin-right: 2px;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    /* Ensures rounded pill look, more space above/below  */
+  }
+  .branch-chip {
+    background: #fff;
+    border: 2px solid #1cb14f; /* Green border */
+    color: #1cb14f;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 3px 14px;
+    font-size: 15px;
+    ion-icon.location {
+      font-size: 16px;
+      margin-right: 6px;
+      color: #1cb14f;
+      vertical-align: middle;
+    }
+  }
+
+  .header-right {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    .header-label {
+      font-size: 16px;
+      color: #333;
+      font-weight: 600;
+      margin-right: 2px;
+    }
+    .header-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1cb14f; /* Green accent */
+      cursor: pointer;
+      margin-left: 2px;
+    }
+  }
+}
+
+.status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+ .status-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bar-rail {
+flex: 1;
+    background: #ededed;
+    border-radius: 999px;
+    height: 18px;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px 0 0 999px;
+  display: flex;
+  align-items: center;
+  padding-left: 22px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* For different rows add colors */
+.zero .bar-fill { background: #b30000; }
+.not .bar-fill { background: #d9534f; }
+.draft .bar-fill { background: #f0ad4e; color: #fff; }
+
+.status-value {
+  min-width: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: right;
+    margin-left: 10px;
+}
+
+}
+
+
+

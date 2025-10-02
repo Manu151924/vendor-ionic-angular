@@ -30,6 +30,7 @@ export class BookingPage implements OnInit {
        dataLabelFormatting(c: any) {
     return c.value;
   }
+  assignedSfx= 20;
 
    tripStatusData = [
     {
@@ -286,17 +287,17 @@ selectedBranch = 'DELHI-11';
       await modal.present();
     }
   }
-async openSfxModal() {
-    console.log('Opening SFX Modal');
-    this.assignedSfxData = this.getAssignedSfxData();
-    const modal = await this.modalController.create({
-      component: SfxModalComponent,
-      componentProps: { assignedSfxData: this.assignedSfxData },
-      cssClass: 'sfx-modal'
-    });
-    await modal.present();
-    await modal.onDidDismiss();
-  }
+    async openSfxModal() {
+        console.log('Opening SFX Modal');
+        this.assignedSfxData = this.getAssignedSfxData();
+        const modal = await this.modalController.create({
+          component: SfxModalComponent,
+          componentProps: { assignedSfxData: this.assignedSfxData },
+          cssClass: 'sfx-modal'
+        });
+        await modal.present();
+        await modal.onDidDismiss();
+    }
 
   async openZeroPickupModal() {
     console.log('Opening ZERO PICKUP Modal');

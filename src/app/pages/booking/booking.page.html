@@ -1,43 +1,47 @@
-  <div class="inventory-box">
-      <ion-card class="inventory-card">
-        <div class="card-header">
-            <ion-chip color="success" class="branch-chip">
-              <ion-icon name="location" class="location"></ion-icon>
-              {{ selectedBranch }}
-            </ion-chip>
-          <div class="waybill-box">
-          <p class="asx">
-            Assigned SFX 
-            <span class="sfx-number" (click)="openSfxModal()">20</span>
-          </p>    
-        </div>
-        </div>
-     <div class="card-content">
-    <div class="chart-container">
-      <div *ngFor="let item of chartData" class="chart-item" (click)="openModal(item.name)">
-        <ngx-charts-bar-horizontal
-          [results]="chartData"
-          [scheme]="colorScheme"
-          [animations]="false"
-          [gradient]="false"
-          [roundEdges]="true"
-          [xAxis]="false"
-          [yAxis]="false"
-          [showDataLabel]="true"
-          [dataLabelFormatting]="dataLabelFormatting"
-          [barPadding]="10"
-          [tooltipDisabled]="true"
-          [view]="[300, 50]"> <!-- Adjusted height for single bar -->
-        </ngx-charts-bar-horizontal>
-        <span class="label">{{ item.name }}</span>
-        <span class="value" (click)="openModal(item.name, $event)">{{ item.value }}</span>
+<div class="inventory-box">
+  <ion-card class="inventory-card">
+    <div class="card-header">
+      <ion-chip class="custom-dropdown">
+        <ion-icon name="location" class="location"></ion-icon>
+        DELHI-11
+      </ion-chip>
+      <div class="header-right">
+        <p class="header-label">
+          Assigned SFX 
+          <span class="header-value" (click)="openSfxModal()">20</span>
+        </p>
       </div>
     </div>
-  </div>
-      </ion-card>
-  </div>
-
-
+    <div class="card-content">
+    <div class="status-list">
+      <div class="status-row zero" (click)="openZeroPickupModal()">
+        <div class="bar-rail">
+          <div class="bar-fill label-fill" style="width: 18%;">
+            <span class="status-label">ZERO PICKUP SFX</span>
+          </div>
+        </div>
+        <span class="status-value">4</span>
+      </div>
+      <div class="status-row not" (click)="openNotManifestedModal()">
+        <div class="bar-rail">
+          <div class="bar-fill label-fill" style="width: 60%;">
+            <span class="status-label">NOT-MANIFESTED</span>
+          </div>
+        </div>
+        <span class="status-value">120</span>
+      </div>
+      <div class="status-row draft" (click)="openDraftWaybillsModal()">
+        <div class="bar-rail">
+          <div class="bar-fill label-fill" style="width: 40%;">
+            <span class="status-label">DRAFT WAYBILLS</span>
+          </div>
+        </div>
+        <span class="status-value">79</span>
+      </div>
+    </div>
+    </div>
+  </ion-card>
+</div>
 <ion-grid class="summary-grid">
   <ion-row>
     <ion-col size="6">

@@ -1,50 +1,106 @@
 .sfx-modal {
-  ion-header {
-    ion-toolbar {
-      border-top-left-radius: 16px;
-      border-top-right-radius: 16px;
-      background: #e4f3e8; // Soft green
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-      ion-title {
-        color: #22b34a;
-        font-weight: 700;
-        font-size: 18px;
-      }
-      ion-button {
-        color: #22b34a;
-        font-weight: 600;
-      }
-    }
-  }
+  --backdrop-opacity: 0.3;
+  padding: 0;
 
-  ion-content {
-    --background: #f6fbf7;
-    padding: 0 10px 16px 10px;
-    ion-list {
-      margin-top: 12px;
-    }
-    ion-item {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(34, 179, 74, 0.09);
-      margin-bottom: 10px;
-      ion-label {
-        h2 {
-          color: #22b34a;
-          font-size: 16px;
-          font-weight: 700;
-          margin-bottom: 4px;
-        }
-        p {
-          color: #323232;
-          font-size: 15px;
-          margin-bottom: 3px;
-        }
-        small {
-          color: #888;
-          font-size: 13px;
-        }
-      }
-    }
+  .modal-wrapper, .ion-overlay-wrapper {
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 8px 24px rgba(44, 62, 80, 0.12);
+    background: #fff;
+    padding: 0;
+    max-width: 400px;
+    margin: 0 auto;
   }
+}
+
+.sfx-list-container {
+  padding: 16px 0 14px 0;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.sfx-header {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 20px;
+  font-size: 21px;
+  font-weight: bold;
+  color: #222;
+  background: #fff;
+  border-radius: 12px 12px 0 0;
+  border-bottom: 1.5px solid #e6e6e6;
+  margin-bottom: 8px;
+
+  .header-pill {
+    border: 2px solid #1cb14f;
+    border-radius: 8px;
+    color: #1cb14f;
+    background: #fff;
+    padding: 4px 18px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-right: 12px;
+  }
+}
+
+/* List Card Styles */
+.sfx-card {
+  background: #fff;
+  border-radius: 13px;
+  border-left: 4px solid #1cb14f;
+  box-shadow: 0 1px 7px rgba(60,72,88,0.06);
+  margin: 10px 18px 0 18px;
+  padding: 13px 18px 12px 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sfx-card + .sfx-card {
+  margin-top: 14px;
+}
+
+.sfx-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 2px;
+
+  .sfx-label {
+    font-size: 15px;
+    color: #43505e;
+    font-weight: 500;
+  }
+  .sfx-value {
+    font-size: 14px;
+    color: #353535;
+    font-weight: 600;
+  }
+  .pickup-label {
+    font-size: 13px;
+    color: #888;
+    font-weight: 600;
+    margin-left: 6px;
+  }
+  .pickup-value {
+    font-size: 14px;
+    color: #1cb14f;
+    font-weight: 600;
+    margin-left: 2px;
+  }
+}
+
+.consigned-label {
+  font-size: 13px;
+  color: #8e8e8e;
+  margin-top: 4px;
+  margin-bottom: 0;
+  font-weight: 600;
+}
+.consigned-value {
+  font-size: 15px;
+  color: #212121;
+  font-weight: 500;
+  margin-bottom: 2px;
+  margin-top: 1px;
 }
