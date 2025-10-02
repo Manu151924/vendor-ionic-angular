@@ -12,6 +12,7 @@ import { NotManifestedModalComponent } from 'src/app/shared/not-maintained-modal
 import { SfxModalComponent } from 'src/app/shared/sfx-modal/sfx-modal.component';
 import { ShExModalComponent } from 'src/app/shared/sh-ex-modal/sh-ex-modal.component';
 import { ZeroPickupModalComponent } from 'src/app/shared/zero-pickup-modal/zero-pickup-modal.component';
+import { TripReportComponent } from "src/app/shared/trip-report/trip-report.component";
 
 
 @Component({
@@ -19,7 +20,7 @@ import { ZeroPickupModalComponent } from 'src/app/shared/zero-pickup-modal/zero-
   templateUrl: './booking.page.html',
   styleUrls: ['./booking.page.scss'],
   standalone: true,
-  imports: [IonChip, IonIcon, IonCol, IonRow, IonGrid, IonCard, CommonModule, FormsModule,NgxChartsModule,NotManifestedModalComponent,ShExModalComponent,IonSelect,IonSelectOption ,SfxModalComponent,ZeroPickupModalComponent,DraftWaybillsModalComponent, ]
+  imports: [IonChip, IonIcon, IonCol, IonRow, IonGrid, IonCard, CommonModule, FormsModule, NgxChartsModule, NotManifestedModalComponent, ShExModalComponent, IonSelect, IonSelectOption, SfxModalComponent, ZeroPickupModalComponent, DraftWaybillsModalComponent, TripReportComponent]
 })
 export class BookingPage implements OnInit {
 

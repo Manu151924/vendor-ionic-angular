@@ -1,0 +1,75 @@
+
+<div class="trip-report-card">
+  <div class="header-row">
+    <div class="card-title">
+      <ion-icon name="car-outline"></ion-icon>
+      Trip Status
+    </div>
+    <div class="trip-count green">{{ tripStatusRows.length }}</div>
+    <div class="absent-title">
+      <ion-icon name="car-outline"></ion-icon>
+      Absent
+    </div>
+    <div class="absent-count red">{{ absentRows.length }}</div>
+   
+  </div>
+  <div class="status-section">
+    <table class="trip-table">
+      <thead>
+        <tr>
+          <th>VEH No.</th>
+          <th>MF vs ULD (WB)</th>
+          <th>MF vs ULD (Pkgs.)</th>
+          <th>SH/EX</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr 
+          *ngFor="let ts of tripStatusRows; let i = index"
+          [class.unloaded]="ts.notUnloaded"
+        >
+          <td>{{ ts.vehicle.slice(-4) }}</td>
+          <td>
+            <span [ngClass]="getAmberClass(ts.mfVsUldWB, ts.mfManifestWB)">
+              {{ ts.mfVsUldWB }}
+            </span>/{{ ts.mfManifestWB }}
+          </td>
+          <td>
+            <span [ngClass]="getAmberClass(ts.mfVsUldPkgs, ts.mfManifestPkgs)">
+              {{ ts.mfVsUldPkgs }}
+            </span>/{{ ts.mfManifestPkgs }}
+          </td>
+          <td>
+            <span [class.red]="ts.shEx>0" (click)="openShExModal(selectedVehicle)">{{ ts.shEx>0 ? ts.shEx : '-' }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="absent-table">
+      <thead>
+        <tr>
+          <th>VEH No.</th>
+          <th>Last Pickup Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ab of absentRows">
+          <td>{{ ab.vehicleNo }}</td>
+          <td>{{ ab.lastPickup }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<ion-modal [isOpen]="calendarOpen" (didDismiss)="calendarOpen = false">
+  <ion-content>
+    <!-- Your datepicker here -->
+    <ion-datetime 
+      [min]="minDate" 
+      [max]="maxDate"
+      [value]="selectedDate"
+      [presentation]="'date'"
+      (ionChange)="changeDate($event)">
+    </ion-datetime>
+  </ion-content>
+</ion-modal>
