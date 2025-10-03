@@ -41,7 +41,7 @@ import { CommonModule } from '@angular/common';
     </div>
   </div>
 
-  <ng-template #noData>
+<ng-template #noData>
     <ion-text color="medium" class="ion-text-center">
       <p>No SH/EX details found.</p>
     </ion-text>
