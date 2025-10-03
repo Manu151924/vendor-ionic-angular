@@ -20,7 +20,7 @@ import { TripReportComponent } from "src/app/shared/trip-report/trip-report.comp
   templateUrl: './booking.page.html',
   styleUrls: ['./booking.page.scss'],
   standalone: true,
-  imports: [IonChip, IonIcon, IonCol, IonRow, IonGrid, IonCard, CommonModule, FormsModule, NgxChartsModule, NotManifestedModalComponent, ShExModalComponent, IonSelect, IonSelectOption, SfxModalComponent, ZeroPickupModalComponent, DraftWaybillsModalComponent, TripReportComponent]
+  imports: [IonChip, IonIcon, IonCol, IonRow, IonGrid, IonCard, CommonModule, FormsModule, NgxChartsModule, IonSelect, IonSelectOption, TripReportComponent]
 })
 export class BookingPage implements OnInit {
 
