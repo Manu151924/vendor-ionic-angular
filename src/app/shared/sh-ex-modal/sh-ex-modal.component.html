@@ -1,3 +1,42 @@
-<p>
-  sh-ex-modal works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <span class="modal-title-pill">DL 11 AS {{ selectedVehicle }}</span>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding sh-ex-list-container">
+  <div *ngFor="let item of shExDetails" 
+       class="sh-ex-card"
+       [ngClass]="{'short': item.status === 'Short', 'excess': item.status === 'Exess'}">
+    <div class="sh-ex-row">
+      <div class="sh-label">WB#</div>
+      <div class="sh-value">{{ item.waybill }}</div>
+      <div class="sh-booking-group">
+        <span class="green">{{ item.booked }}</span>/
+        <span class="amber">{{ item.manifested }}</span>/
+        <span class="red">{{ item.received }}</span>
+      </div>
+      <div class="sh-date-label">Pickup Date</div>
+      <div class="sh-date-value">{{ item.pickupDate }}</div>
+    </div>
+    <div class="sh-consignor-row">
+      <span class="sh-consignor-label">Consignor</span>
+      <span class="sh-consignor-value">{{ item.consignor }}</span>
+      <span *ngIf="item.status === 'Short'" class="sh-chip short">Short</span>
+      <span *ngIf="item.status === 'Exess'" class="sh-chip excess">Exess</span>
+    </div>
+  </div>
+
+<ng-template #noData>
+    <ion-text color="medium" class="ion-text-center">
+      <p>No SH/EX details found.</p>
+    </ion-text>
+  </ng-template>
+</ion-content>

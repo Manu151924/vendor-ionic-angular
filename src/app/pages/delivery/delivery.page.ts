@@ -3,7 +3,9 @@ import { IonContent, IonCard, IonDatetime, IonModal, IonItem, IonIcon , IonSelec
 import { Color, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
 import { FormsModule } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { addIcons } from 'ionicons';
 import { CommonModule } from '@angular/common';
+import { checkmarkOutline } from 'ionicons/icons';
 
 interface TripVehicle {
   vehNo: string;
@@ -79,11 +81,12 @@ export class DeliveryPage implements OnInit {
     name: 'pieScheme',
     selectable: true,
     group: ScaleType.Ordinal,
-    domain: ['#5cb85c', '#d9534f']
+    domain: ['#06B4A2', '#FF8A0D']
   };
-  progressValue = 0.6; // 60%
+  progressValue = 0; 
   today = new Date();
   constructor() {
+    addIcons({checkmarkOutline})
     const today = new Date();
     this.maxDate = today.toISOString().split('T')[0];
     const min = new Date();
@@ -111,8 +114,8 @@ export class DeliveryPage implements OnInit {
     this.updateDisplayedData();
   }
   private updateDisplayedData() {
-    this.displayedTripVehicles = this.isExpanded ? this.allTripVehicles  : this.allTripVehicles.slice(0, 2);
-    this.displayedAbsentVehicles = this.isExpanded ? this.allAbsentVehicles : this.allAbsentVehicles.slice(0, 1);
+    this.displayedTripVehicles = this.isExpanded ? this.allTripVehicles  : this.allTripVehicles.slice(0, 5);
+    this.displayedAbsentVehicles = this.isExpanded ? this.allAbsentVehicles : this.allAbsentVehicles.slice(0, 5);
   }
   startDrag(event: MouseEvent) {
     this.updateProgress(event);

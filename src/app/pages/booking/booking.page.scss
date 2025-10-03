@@ -227,50 +227,51 @@
   flex-direction: column;
   gap: 18px;
 
- .status-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+  .status-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
 
-.bar-rail {
-flex: 1;
+  .bar-rail {
+    flex: 1;
     background: #ededed;
     border-radius: 999px;
     height: 18px;
     position: relative;
-    overflow: hidden;
+    overflow: visible; // <- allow shadow/text overflow
     white-space: nowrap;
-}
+  }
 
-.bar-fill {
-  height: 100%;
-  border-radius: 999px 0 0 999px;
-  display: flex;
-  align-items: center;
-  padding-left: 22px;
-  color: #fff;
-  font-weight: 700;
-  font-size: 14px;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
+  .bar-fill {
+       height: 100%;
+    border-radius: 999px 0 0 999px;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    color: #fff;
+    font-weight: 400;
+    font-size: 11px;
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+  }
 
-/* For different rows add colors */
-.zero .bar-fill { background: #b30000; }
-.not .bar-fill { background: #d9534f; }
-.draft .bar-fill { background: #f0ad4e; color: #fff; }
+  .status-label {
+    position: relative; // keep inside bar
+    z-index: 2;         // ensure it’s above shadow
+  }
 
-.status-value {
-  min-width: 50px;
+  /* Colors for different rows */
+  .zero .bar-fill { background: #b30000; }
+  .not .bar-fill { background: #d9534f; }
+  .draft .bar-fill { background: #f0ad4e; color: #fff; }
+
+  .status-value {
+    min-width: 50px;
     font-size: 16px;
     font-weight: 500;
     text-align: right;
     margin-left: 10px;
+  }
 }
-
-}
-
-
-

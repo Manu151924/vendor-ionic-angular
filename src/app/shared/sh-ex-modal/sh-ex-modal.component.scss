@@ -1,0 +1,63 @@
+.sh-ex-list-container {
+  padding-top: 8px;
+  max-height: 99vh;
+  overflow-y: auto;
+  background: #f7f7f7;
+}
+.sh-ex-card {
+  background: #fff;
+  border-radius: 14px;
+  border-left: 4px solid #b30000;
+  box-shadow: 0 1px 7px rgba(60,72,88,0.06);
+  margin: 10px 16px 0 16px;
+  padding: 13px 18px 9px 18px;
+  display: flex; 
+  flex-direction: column;
+  &.excess { border-left-color: #f0ad4e; }
+}
+
+.sh-ex-row {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  .sh-label { font-weight: 600; width: 55px;}
+  .sh-value { font-weight: 700; min-width: 130px; }
+  .sh-booking-group { font-weight: 700; }
+  .green { color: #22b543;}
+  .amber { color: #f0ad4e;}
+  .red { color: #c52222;}
+  .sh-date-label { font-size: 13px; color: #888; margin-left: 7px;}
+  .sh-date-value { color: #b30000; font-weight: 700; margin-left: 7px;}
+}
+.sh-consignor-row {
+  margin-top: 8px;
+  .sh-consignor-label { font-size: 12.5px; color: #888; font-weight: 600; margin-right: 7px; }
+  .sh-consignor-value { font-size: 14px; color: #222; font-weight: 500;}
+  .sh-chip {
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 12px;
+    padding: 3px 18px;
+    margin-left: 18px;
+    background: #fff0f0;
+    border: 1.5px solid #b30000;
+    color: #b30000;
+    &.excess {
+      background: #fff7e2;
+      border-color: #f0ad4e;
+      color: #e69500;
+    }
+  }
+}
+
+/* Modal Title Pill */
+.modal-title-pill {
+  border: 2px solid #78909c;
+  border-radius: 8px;
+  background: #fff;
+  color: #444;
+  padding: 2px 18px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}

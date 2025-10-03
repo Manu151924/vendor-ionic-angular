@@ -2,18 +2,15 @@ import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonCard, IonSelect,IonSelectOption, IonGrid, IonRow, IonCol, IonIcon, IonChip } from '@ionic/angular/standalone';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { Color, ScaleType } from '@swimlane/ngx-charts';
+import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
 import { addIcons } from 'ionicons';
-import { ModalController } from '@ionic/angular';
 import { busOutline, swapHorizontalOutline, lockClosedOutline, readerOutline, checkmarkOutline, location } from 'ionicons/icons';
+import { ToastController,ModalController } from '@ionic/angular';
 import { DraftWaybillsModalComponent } from 'src/app/shared/draft-waybill-modal/draft-waybill-modal.component';
 import { NotManifestedModalComponent } from 'src/app/shared/not-maintained-modal/not-maintained-modal.component';
 import { SfxModalComponent } from 'src/app/shared/sfx-modal/sfx-modal.component';
-import { ShExModalComponent } from 'src/app/shared/sh-ex-modal/sh-ex-modal.component';
 import { ZeroPickupModalComponent } from 'src/app/shared/zero-pickup-modal/zero-pickup-modal.component';
 import { TripReportComponent } from "src/app/shared/trip-report/trip-report.component";
-import { ToastController } from '@ionic/angular';
 
 interface SfxData {
   code: string;
@@ -61,14 +58,12 @@ interface ShExDetails {
   imports: [IonChip, IonIcon, IonCol, IonRow, IonGrid, IonCard, CommonModule, FormsModule, NgxChartsModule, IonSelect, IonSelectOption, TripReportComponent]
 })
 export class BookingPage implements OnInit {
-
   constructor() {
     addIcons({location,swapHorizontalOutline,busOutline,lockClosedOutline,readerOutline,checkmarkOutline,});
    }
   private modalController = inject(ModalController);
   private toastController = inject(ToastController);
-
-       dataLabelFormatting(c: any) {
+  dataLabelFormatting(c: any) {
     return c.value;
   }
   async showToast(message: string) {
@@ -79,9 +74,8 @@ export class BookingPage implements OnInit {
     position: 'top'
   });
   toast.present();
-}
+  }
   assignedSfx= 20;
-
    tripStatusData = [
     {
       vehNo: '5555',
@@ -126,15 +120,12 @@ export class BookingPage implements OnInit {
       ]
     },
   ];
-
   absentData = [
     { vehNo: '1654', pickupDate: '18-Aug-2024' },
     { vehNo: '1218', pickupDate: '17-Aug-2024' }
   ];
-
   tooltipIndex: number | null = null;
   popupWaybillIndex: number | null = null;
-
   showTooltip(idx: number, event: MouseEvent) {
     event.stopPropagation();
     if (this.tooltipIndex === idx) {
@@ -144,7 +135,6 @@ export class BookingPage implements OnInit {
       this.popupWaybillIndex = null;
     }
   }
-
   showPopupWaybill(idx: number, event: MouseEvent) {
     event.stopPropagation();
     if (this.popupWaybillIndex === idx) {
@@ -154,7 +144,6 @@ export class BookingPage implements OnInit {
       this.tooltipIndex = null;
     }
   }
-
   @HostListener('document:click', ['$event'])
   onDocClick() {
     this.tooltipIndex = null;
@@ -164,11 +153,10 @@ export class BookingPage implements OnInit {
     name: 'customScheme',
     selectable: true,
     group: ScaleType.Ordinal, 
-    domain: ['#f59539', '#2cb7b5'] 
+    domain: ['#FF8A0D', '#06B4A2'] 
   };
- selectedMonth: string = ''; 
+  selectedMonth: string = ''; 
   validMonths: string[] = []; 
-
   totalWaybill = 500;
   editedWaybill = 150;
   volumetricWeight = 16;
@@ -183,30 +171,24 @@ export class BookingPage implements OnInit {
   public notManifestedData: NotManifestedData[] = [];
   public draftWaybillsData: DraftWaybillsData[] = [];
   public selectedVehicle = '';
-
-
   pieChartData: { name: string; value: number }[] = [];
-    chartData = [
+  chartData = [
     { name: 'ZERO PICKUP SFX', value: 4 },
     { name: 'NOT MANIFESTED', value: 120 },
     { name: 'DRAFT WAYBILLS', value: 79 },
   ];
-
   colorScheme: Color = {
     name: 'customScheme',
     selectable: true,
     group: ScaleType.Ordinal,
      domain: ['#a81e2f', '#a81e2f', '#ffc700']
   };
-
   today = new Date();
-
   ngOnInit() {
     this.generateValidMonths();
     this.selectedMonth = this.formatMonthYear(this.today);
     this.loadDataForMonth(this.selectedMonth);
   }
-
   generateValidMonths() {
     const months = [];
     const today = new Date();
@@ -216,12 +198,10 @@ export class BookingPage implements OnInit {
     }
     this.validMonths = months;
   }
-
   formatMonthYear(date: Date): string {
     const options = { year: '2-digit', month: 'short' } as const;
     return date.toLocaleDateString('en-US', options).replace(',', '');
   }
-
   isFutureMonth(monthStr: string): boolean {
     const [mon, yr] = monthStr.split('-');
     const yearFull = 2000 + parseInt(yr, 10);
@@ -229,7 +209,6 @@ export class BookingPage implements OnInit {
     const monthDate = new Date(yearFull, monthNumber, 1);
     return monthDate > this.today;
   }
-
   loadDataForMonth(monthStr: string) {
     if (this.isFutureMonth(monthStr)) {
       this.selectedMonth = this.formatMonthYear(this.today);
@@ -242,7 +221,6 @@ export class BookingPage implements OnInit {
       { name: 'Booked', value: this.totalWaybill - this.editedWaybill }
     ];
   }
-
   getWeightVolumePercent(): number {
     return this.actualWeight === 0 ? 0 : Math.round((this.volumetricWeight / this.actualWeight) * 100);
   }
@@ -378,24 +356,10 @@ export class BookingPage implements OnInit {
     await modal.onDidDismiss();
   }
 
-  async openShExModal(vehicleNo: string) {
-    console.log('Opening SH/EX Modal for', vehicleNo);
-    this.selectedVehicle = vehicleNo;
-    this.shExDetails = this.getShExDetails(vehicleNo);
-    const modal = await this.modalController.create({
-      component: ShExModalComponent,
-      componentProps: { shExDetails: this.shExDetails, selectedVehicle: this.selectedVehicle },
-      cssClass: 'sh-ex-modal'
-    });
-    await modal.present();
-    await modal.onDidDismiss();
-  }
-
   closeSfxModal() { this.modalController.dismiss(); }
   closeZeroPickupModal() { this.modalController.dismiss(); }
   closeNotManifestedModal() { this.modalController.dismiss(); }
   closeDraftWaybillsModal() { this.modalController.dismiss(); }
-  closeShExModal() { this.modalController.dismiss(); }
 
   getAssignedSfxData(): any[] {
     return [
