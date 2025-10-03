@@ -48,12 +48,15 @@
         <span class="big-count green">7</span>
       </div>
       <div class="table-list">
-        <div *ngFor="let t of displayedTripVehicles" class="table-row">
+        @for(t of displayedTripVehicles; track t.vehNo){
+        <div  class="table-row">
           <span>{{t.vehNo}}</span>
           <span [ngClass]="t.statusColor">{{t.ofdStatus}}</span>
           <span>{{t.lastUpdated}}</span>
           <span><ion-icon name="location"></ion-icon></span>
         </div>
+        }
+
       </div>
     </div>
 
@@ -64,10 +67,12 @@
         <span class="big-count red">2</span>
       </div>
       <div class="table-list">
-        <div *ngFor="let a of displayedAbsentVehicles" class="table-row">
+        @for(a of displayedAbsentVehicles; track a.vehNo ){
+        <div class="table-row">
           <span>{{a.vehNo}}</span>
           <span>{{a.lastTripDate}}</span>
         </div>
+        }
       </div>
     </div>
   </div>
@@ -116,12 +121,13 @@
 <!-- Use ion-datetime for calendar modal -->
 <ion-modal [isOpen]="calendarOpen" (ionModalDidDismiss)="calendarOpen = false">
   <ion-content>
-    <ion-datetime
-      [max]="maxDate"
-      [min]="minDate"
-      [value]="selectedDate"
-      (ionChange)="tempSelectedDate = $event.detail.value">
-    </ion-datetime>
+<ion-datetime
+  [max]="maxDate"
+  [min]="minDate"
+  [value]="selectedDate.toISOString()"
+  (ionChange)="tempSelectedDate = $event.detail.value">
+</ion-datetime>
+
 
     <ion-footer>
       <ion-toolbar>

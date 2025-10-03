@@ -13,6 +13,44 @@ import { SfxModalComponent } from 'src/app/shared/sfx-modal/sfx-modal.component'
 import { ShExModalComponent } from 'src/app/shared/sh-ex-modal/sh-ex-modal.component';
 import { ZeroPickupModalComponent } from 'src/app/shared/zero-pickup-modal/zero-pickup-modal.component';
 import { TripReportComponent } from "src/app/shared/trip-report/trip-report.component";
+import { ToastController } from '@ionic/angular';
+
+interface SfxData {
+  code: string;
+  consignor: string;
+  lastPickupDate: string; // can be Date if you parse it
+}
+
+interface ZeroPickupData {
+  code: string;
+  consignor: string;
+  lastPickupDate: string;
+}
+
+interface NotManifestedData {
+  waybill: string;
+  booked: number;
+  manifested: number;
+  remaining: number;
+  consignor: string;
+  pickupDate: string;
+}
+
+interface DraftWaybillsData {
+  waybill: string;
+  consignor: string;
+  pickupDate: string;
+}
+
+interface ShExDetails {
+  waybill: string;
+  booked: number;
+  manifested: number;
+  received: number;
+  consignor: string;
+  pickupDate: string;
+  status: 'Short' | 'Excess' | string;
+}
 
 
 @Component({
@@ -28,9 +66,20 @@ export class BookingPage implements OnInit {
     addIcons({location,swapHorizontalOutline,busOutline,lockClosedOutline,readerOutline,checkmarkOutline,});
    }
   private modalController = inject(ModalController);
+  private toastController = inject(ToastController);
+
        dataLabelFormatting(c: any) {
     return c.value;
   }
+  async showToast(message: string) {
+  const toast = await this.toastController.create({
+    message,
+    duration: 2000,
+    color: 'warning',
+    position: 'top'
+  });
+  toast.present();
+}
   assignedSfx= 20;
 
    tripStatusData = [
@@ -39,12 +88,12 @@ export class BookingPage implements OnInit {
       lastFour: '5555',
       mfNo: '2035 9999 0303',
       waybill: { mf: 16, uld: 17 },
-      waybillAmber: true,   // Shows amber color if mismatch
+      waybillAmber: true,   
       pkgs: { mf: 300, uld: 296 },
       pkgsAmber: true,
       shEx: 4,
       shExAmber: true,
-      waybillPopup: [       // Popup matrix with detailed waybill info
+      waybillPopup: [      
         {
           waybillNo: 'WB1234',
           pickupDate: '01-Oct-2024',
@@ -76,10 +125,8 @@ export class BookingPage implements OnInit {
         }
       ]
     },
-    // Add more trips similarly
   ];
 
-  // Absent Vehicles list
   absentData = [
     { vehNo: '1654', pickupDate: '18-Aug-2024' },
     { vehNo: '1218', pickupDate: '17-Aug-2024' }
@@ -88,29 +135,26 @@ export class BookingPage implements OnInit {
   tooltipIndex: number | null = null;
   popupWaybillIndex: number | null = null;
 
-  // Show/hide tooltip for vehicle number on click
   showTooltip(idx: number, event: MouseEvent) {
     event.stopPropagation();
     if (this.tooltipIndex === idx) {
       this.tooltipIndex = null;
     } else {
       this.tooltipIndex = idx;
-      this.popupWaybillIndex = null; // close other popup
+      this.popupWaybillIndex = null;
     }
   }
 
-  // Show/hide waybill popup matrix on SH/EX click
   showPopupWaybill(idx: number, event: MouseEvent) {
     event.stopPropagation();
     if (this.popupWaybillIndex === idx) {
       this.popupWaybillIndex = null;
     } else {
       this.popupWaybillIndex = idx;
-      this.tooltipIndex = null; // close tooltip
+      this.tooltipIndex = null;
     }
   }
 
-  // Close popups/tooltips when clicking outside
   @HostListener('document:click', ['$event'])
   onDocClick() {
     this.tooltipIndex = null;
@@ -122,10 +166,9 @@ export class BookingPage implements OnInit {
     group: ScaleType.Ordinal, 
     domain: ['#f59539', '#2cb7b5'] 
   };
- selectedMonth: string = ''; // Initialize here
-  validMonths: string[] = []; // Declare this to fix error
+ selectedMonth: string = ''; 
+  validMonths: string[] = []; 
 
-  // Replace your existing data items here
   totalWaybill = 500;
   editedWaybill = 150;
   volumetricWeight = 16;
@@ -134,15 +177,15 @@ export class BookingPage implements OnInit {
   totalWaybillPicked = 100;
   mappedVehicleTrips = 600;
   totalTrips = 650;
-    public shExDetails: any[] = [];
-  public assignedSfxData: any[] = [];
-  public zeroPickupData: any[] = [];
-  public notManifestedData: any[] = [];
-  public draftWaybillsData: any[] = [];
-    public selectedVehicle = '';
+  public shExDetails: ShExDetails[] = [];
+  public assignedSfxData: SfxData[] = [];
+  public zeroPickupData: ZeroPickupData[] = [];
+  public notManifestedData: NotManifestedData[] = [];
+  public draftWaybillsData: DraftWaybillsData[] = [];
+  public selectedVehicle = '';
 
 
-  pieChartData: { name: string; value: number }[] = []; // Define type explicitly
+  pieChartData: { name: string; value: number }[] = [];
     chartData = [
     { name: 'ZERO PICKUP SFX', value: 4 },
     { name: 'NOT MANIFESTED', value: 120 },
@@ -167,7 +210,6 @@ export class BookingPage implements OnInit {
   generateValidMonths() {
     const months = [];
     const today = new Date();
-    // Generate months for last 12 months including current month
     for (let i = 11; i >= 0; i--) {
       const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
       months.push(this.formatMonthYear(d));
@@ -182,7 +224,6 @@ export class BookingPage implements OnInit {
 
   isFutureMonth(monthStr: string): boolean {
     const [mon, yr] = monthStr.split('-');
-    // Parse year as full year
     const yearFull = 2000 + parseInt(yr, 10);
     const monthNumber = new Date(Date.parse(mon + " 1, " + yearFull)).getMonth();
     const monthDate = new Date(yearFull, monthNumber, 1);
@@ -191,11 +232,11 @@ export class BookingPage implements OnInit {
 
   loadDataForMonth(monthStr: string) {
     if (this.isFutureMonth(monthStr)) {
-      alert('Future months cannot be selected');
       this.selectedMonth = this.formatMonthYear(this.today);
+        this.showToast('Future months cannot be selected');
+
       return;
     }
-    // Set pie chart data array
     this.pieChartData = [
       { name: 'Edited', value: this.editedWaybill },
       { name: 'Booked', value: this.totalWaybill - this.editedWaybill }
@@ -233,28 +274,28 @@ export class BookingPage implements OnInit {
   }
   getGradientForWeightVolume(percent: number): string {
   if (percent <= 33)
-    return 'linear-gradient(90deg, #e53935, #e53935)'; // solid red
+    return 'linear-gradient(90deg, #e53935, #e53935)'; 
   if (percent <= 66)
-    return 'linear-gradient(90deg, #ffa726, #ffca28)'; // amber gradient
-  return 'linear-gradient(90deg, #8bc34a, #4caf50)'; // green gradient
+    return 'linear-gradient(90deg, #ffa726, #ffca28)'; 
+  return 'linear-gradient(90deg, #8bc34a, #4caf50)'; 
 }
 
-getGradientForInterchange(percent: number): string {
-  if (percent <= 33)
-    return 'linear-gradient(90deg, #8bc34a, #a5d6a7)'; // green gradient
-  if (percent <= 66)
-    return 'linear-gradient(90deg, #ffa726, #ffca28)'; // amber gradient
-  return 'linear-gradient(90deg, #e53935, #ef5350)'; // red gradient
-}
+  getGradientForInterchange(percent: number): string {
+    if (percent <= 33)
+      return 'linear-gradient(90deg, #8bc34a, #a5d6a7)'; 
+    if (percent <= 66)
+      return 'linear-gradient(90deg, #ffa726, #ffca28)'; 
+    return 'linear-gradient(90deg, #e53935, #ef5350)'; 
+  }
 
-getGradientForMarketVehicleUsage(percent: number): string {
-  if (percent <= 33)
-    return 'linear-gradient(90deg, #e53935, #e57373)'; // red gradient
-  if (percent <= 66)
-    return 'linear-gradient(90deg, #ffa726, #ffca28)'; // amber gradient
-  return 'linear-gradient(90deg, #8bc34a, #4caf50)'; // green gradient
-}
-selectedBranch = 'DELHI-11';
+  getGradientForMarketVehicleUsage(percent: number): string {
+    if (percent <= 33)
+      return 'linear-gradient(90deg, #e53935, #e57373)'; 
+    if (percent <= 66)
+      return 'linear-gradient(90deg, #ffa726, #ffca28)'; 
+    return 'linear-gradient(90deg, #8bc34a, #4caf50)'; 
+  }
+  selectedBranch = 'DELHI-11';
   async openModal(name: string, event?: Event) {
     event?.stopPropagation();
     let modalComponent: any;
@@ -418,7 +459,4 @@ selectedBranch = 'DELHI-11';
       return 'success';
     }
   }
-
-
-
 }
