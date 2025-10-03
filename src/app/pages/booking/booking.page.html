@@ -104,7 +104,9 @@
   <div class="snapshot-header">
     <span class="snapshot-title">Month Wise Snapshot</span>
     <ion-select   class="snapshot-dropdown" fill="solid" color="success" size="small"[(ngModel)]="selectedMonth" interface="popover" (ionChange)="loadDataForMonth(selectedMonth)">
-      <ion-select-option *ngFor="let month of validMonths" [value]="month">{{ month }}</ion-select-option>
+      @for(month of validMonths; track month ){
+              <ion-select-option  [value]="month">{{ month }}</ion-select-option>
+      }
     </ion-select>
   </div>
   <div class="snapshot-content">

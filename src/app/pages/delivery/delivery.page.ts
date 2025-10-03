@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { IonContent, IonCard, IonDatetime, IonModal, IonItem, IonIcon , IonSelect,IonSelectOption, IonNote, IonButton, IonToolbar, IonFooter, IonButtons } from "@ionic/angular/standalone";
 import { Color, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
 import { FormsModule } from '@angular/forms';
+import { ToastController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 
 interface TripVehicle {
   vehNo: string;
   ofdStatus: string;
-  statusColor: string; // CSS class for color
+  statusColor: string; 
   lastUpdated: string;
 }
 
@@ -23,27 +24,27 @@ interface AbsentVehicle {
   imports :[IonContent,IonCard, IonDatetime, IonModal,IonItem, IonIcon,IonSelect,IonSelectOption, IonNote, IonButton, IonToolbar, IonFooter, IonButtons,FormsModule,NgxChartsModule,CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DeliveryPage {
-  // ------------------------------
-  // Dropdown
+export class DeliveryPage implements OnInit {
+
   cities: string[] = ['Delhi', 'Mumbai', 'Hyderabad', 'Chennai'];
   selectedCity: string = this.cities[0];
-
-  // ------------------------------
-  // Dates
   selectedDate: Date = new Date();
   tempSelectedDate?: string | string[] | null;
   calendarOpen = false;
   minDate: string;
   maxDate: string;
-
-  // ------------------------------
-  // Bar chart (Route Wise WB Count)
+  selectedMonth: string = ''; 
+  validMonths: string[] = []; 
+  private toastController = inject(ToastController);
   barData = [
     { name: 'Route 1', value: 120 },
     { name: 'Route 2', value: 80 },
     { name: 'Route 3', value: 130 },
   ];
+  ngOnInit(): void {
+    this.selectedMonth = this.formatMonthYear(this.today);
+    this.loadDataForMonth(this.selectedMonth);
+  }
 
   colorScheme: Color = {
     name: 'myScheme',
@@ -51,37 +52,25 @@ export class DeliveryPage {
     group: ScaleType.Ordinal,
     domain: ['#4caf50', '#2196f3', '#ff9800']
   };
-  // ------------------------------
-  // Trip Status
   allTripVehicles: TripVehicle[] = [
-    { vehNo: 'DL01AB1234', ofdStatus: 'OFD', statusColor: 'green', lastUpdated: '10:30 AM' },
-    { vehNo: 'MH12XY5678', ofdStatus: 'Delivered', statusColor: 'blue', lastUpdated: '11:10 AM' },
-    { vehNo: 'TS09CD9876', ofdStatus: 'Pending', statusColor: 'red', lastUpdated: '09:50 AM' },
-    { vehNo: 'DL05EF4444', ofdStatus: 'OFD', statusColor: 'green', lastUpdated: '12:20 PM' },
+   { vehNo: '1234', ofdStatus: '16/20', lastUpdated: '12:00', statusColor: 'green' },
+    { vehNo: '4321', ofdStatus: '11/17', lastUpdated: '14:00', statusColor: 'green' },
+    { vehNo: '7733*', ofdStatus: '12/22', lastUpdated: '10:00', statusColor: 'yellow' },
+    { vehNo: '8973', ofdStatus: '10/23', lastUpdated: '09:00', statusColor: 'green' },
+    { vehNo: '1287', ofdStatus: '00/24', lastUpdated: '05:00', statusColor: 'red' },
+    { vehNo: '1283', ofdStatus: '00/24', lastUpdated: '05:00', statusColor: 'red' }
   ];
   displayedTripVehicles: TripVehicle[] = [];
-
-  // ------------------------------
-  // Absent Vehicles
   allAbsentVehicles: AbsentVehicle[] = [
     { vehNo: 'MH20ZZ1111', lastTripDate: '2025-09-28' },
     { vehNo: 'TS07WW9999', lastTripDate: '2025-09-26' },
   ];
   displayedAbsentVehicles: AbsentVehicle[] = [];
-
-  // ------------------------------
-  // Expansion toggle
   isExpanded = false;
-
-  // ------------------------------
-  // KPI values
   toBeCollected = 52348;
   pendingPods = 3;
   marketVehicleUsage = 3;
-  safedropUsage = 76; // %
-
-  // ------------------------------
-  // Pie Chart (Month Wise Snapshot)
+  safedropUsage = 76; 
   pieChartData = [
     { name: 'Delivered', value: 370 },
     { name: 'Un-Delivered', value: 20 }
@@ -92,66 +81,42 @@ export class DeliveryPage {
     group: ScaleType.Ordinal,
     domain: ['#5cb85c', '#d9534f']
   };
-
-  // ------------------------------
-  // Progress Bar
   progressValue = 0.6; // 60%
-
+  today = new Date();
   constructor() {
     const today = new Date();
     this.maxDate = today.toISOString().split('T')[0];
     const min = new Date();
-    min.setMonth(today.getMonth() - 1); // one month before
+    min.setMonth(today.getMonth() - 1); 
     this.minDate = min.toISOString().split('T')[0];
-
-    // show first few rows initially
     this.updateDisplayedData();
   }
-
-  // ------------------------------
-  // Calendar methods
   openCalendar() {
     this.calendarOpen = true;
   }
-
   cancelDate() {
     this.calendarOpen = false;
   }
-
-confirmDate() {
-  if (this.tempSelectedDate) {
-    const dateStr = Array.isArray(this.tempSelectedDate)
-      ? this.tempSelectedDate[0]
-      : this.tempSelectedDate;
-    this.selectedDate = new Date(dateStr);
+  confirmDate() {
+    if (this.tempSelectedDate) {
+      const dateStr = Array.isArray(this.tempSelectedDate)
+        ? this.tempSelectedDate[0]
+        : this.tempSelectedDate;
+      this.selectedDate = new Date(dateStr);
+    }
+    this.calendarOpen = false;
   }
-  this.calendarOpen = false;
-}
-
-
-  // ------------------------------
-  // Toggle expansion for Trip & Absent tables
   toggleExpansion() {
     this.isExpanded = !this.isExpanded;
     this.updateDisplayedData();
   }
-
   private updateDisplayedData() {
-    this.displayedTripVehicles = this.isExpanded
-      ? this.allTripVehicles
-      : this.allTripVehicles.slice(0, 2);
-
-    this.displayedAbsentVehicles = this.isExpanded
-      ? this.allAbsentVehicles
-      : this.allAbsentVehicles.slice(0, 1);
+    this.displayedTripVehicles = this.isExpanded ? this.allTripVehicles  : this.allTripVehicles.slice(0, 2);
+    this.displayedAbsentVehicles = this.isExpanded ? this.allAbsentVehicles : this.allAbsentVehicles.slice(0, 1);
   }
-
-  // ------------------------------
-  // Progress Bar drag interaction
   startDrag(event: MouseEvent) {
     this.updateProgress(event);
   }
-
   onDrag(event: MouseEvent) {
     if (event.buttons === 1) {
       this.updateProgress(event);
@@ -173,5 +138,39 @@ confirmDate() {
     if (this.progressValue < 0.3) return '😞';
     if (this.progressValue < 0.7) return '🙂';
     return '😄';
+  }
+  formatMonthYear(date: Date): string {
+    const options = { year: '2-digit', month: 'short' } as const;
+    return date.toLocaleDateString('en-US', options).replace(',', '');
+  }
+
+  isFutureMonth(monthStr: string): boolean {
+    const [mon, yr] = monthStr.split('-');
+    const yearFull = 2000 + parseInt(yr, 10);
+    const monthNumber = new Date(Date.parse(mon + " 1, " + yearFull)).getMonth();
+    const monthDate = new Date(yearFull, monthNumber, 1);
+    return monthDate > this.today;
+  }
+
+  loadDataForMonth(monthStr: string) {
+    if (this.isFutureMonth(monthStr)) {
+      this.selectedMonth = this.formatMonthYear(this.today);
+        this.showToast('Future months cannot be selected');
+
+      return;
+    }
+    this.pieChartData = [
+      { name: 'Delivered', value: 370 },
+      { name: 'Booked', value: 20  }
+    ];
+  }
+  async showToast(message: string) {
+  const toast = await this.toastController.create({
+    message,
+    duration: 2000,
+    color: 'warning',
+    position: 'top'
+  });
+  toast.present();
   }
 }

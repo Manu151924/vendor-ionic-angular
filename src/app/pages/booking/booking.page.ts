@@ -18,7 +18,7 @@ import { ToastController } from '@ionic/angular';
 interface SfxData {
   code: string;
   consignor: string;
-  lastPickupDate: string; // can be Date if you parse it
+  lastPickupDate: string;
 }
 
 interface ZeroPickupData {
