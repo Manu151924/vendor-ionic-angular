@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { CommonModule } from '@angular/common';
-import { checkmarkOutline } from 'ionicons/icons';
+import { checkmarkOutline, chevronDownOutline, chevronUpOutline, location, calendar, carOutline, checkboxOutline, shieldCheckmark, document } from 'ionicons/icons';
 
 interface TripVehicle {
   vehNo: string;
@@ -39,9 +39,11 @@ export class DeliveryPage implements OnInit {
   validMonths: string[] = []; 
   private toastController = inject(ToastController);
   barData = [
-    { name: 'Route 1', value: 120 },
-    { name: 'Route 2', value: 80 },
-    { name: 'Route 3', value: 130 },
+    { name: 'DWARKA', value: 100 },
+    { name: 'KAROLBAGH', value: 80 },
+    { name: 'UTTAM NAGAR', value: 55 },
+    { name: 'MAHIPALPUR', value: 40 },
+    { name: 'VASANTKUNJ', value: 32 }
   ];
   ngOnInit(): void {
     this.selectedMonth = this.formatMonthYear(this.today);
@@ -52,7 +54,7 @@ export class DeliveryPage implements OnInit {
     name: 'myScheme',
     selectable: true,
     group: ScaleType.Ordinal,
-    domain: ['#4caf50', '#2196f3', '#ff9800']
+    domain: ['#C62828', '#F9A825', '#43A047', '#81C784', '#66BB6A']
   };
   allTripVehicles: TripVehicle[] = [
    { vehNo: '1234', ofdStatus: '16/20', lastUpdated: '12:00', statusColor: 'green' },
@@ -86,7 +88,7 @@ export class DeliveryPage implements OnInit {
   progressValue = 0; 
   today = new Date();
   constructor() {
-    addIcons({checkmarkOutline})
+    addIcons({checkmarkOutline, location, chevronUpOutline, chevronDownOutline, calendar, carOutline, checkboxOutline, shieldCheckmark, document})
     const today = new Date();
     this.maxDate = today.toISOString().split('T')[0];
     const min = new Date();
