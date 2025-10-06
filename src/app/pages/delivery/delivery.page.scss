@@ -134,7 +134,7 @@ ion-button {
   margin-right: 8px; 
 }
 .dashboard-container {
-  max-width: 650px;
+  max-width: 747px;
   margin: auto;
 }
 
@@ -356,4 +356,25 @@ ion-button {
   font-size: 16px;
   font-weight: bold;
   color: #444;
+}
+
+/* -------------------- Base / Utility -------------------- */
+@media screen and (min-width: 600px) {
+  .table-row { grid-template-columns: 1.6fr 2.5fr 1.6fr 0.7fr; }
+  .kpi-card { flex: 1 1 30%; }
+  // .dashboard-container { padding: 16px; }
+  .snapshot-bars{ padding: auto;}
+}
+
+@media screen and (min-width: 900px) {
+  .kpi-card { flex: 1 1 22%; }
+  .table-row { grid-template-columns: 2fr 3fr 2fr 1fr; font-size: 15px; }
+  .custom-card { margin: 20px; }
+  .dashboard-container { max-width: 900px; padding: 20px; }
+}
+
+@media screen and (min-width: 1200px) {
+  .kpi-card { flex: 1 1 18%; }
+  .table-row { grid-template-columns: 2.5fr 4fr 2.5fr 1fr; font-size: 16px; }
+  .dashboard-container { max-width: 1200px; margin: 0 auto; }
 }
