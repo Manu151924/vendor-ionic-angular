@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { ModalController, IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 
@@ -107,14 +107,13 @@ import { CommonModule } from '@angular/common';
   imports: [IonicModule, CommonModule]
 })
 export class SfxModalComponent {
+  private modalCtrl = inject(ModalController);
+
   @Input() assignedSfxData: {
     code: string;
     consignor: string;
     lastPickupDate: string;
   }[] = [];
-
-  constructor(private modalCtrl: ModalController) {}
-
   close() {
     this.modalCtrl.dismiss();
   }

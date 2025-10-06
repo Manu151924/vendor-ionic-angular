@@ -5,10 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './not-manifisted-modal.component.html',
   styleUrls: ['./not-manifisted-modal.component.scss'],
 })
-export class NotManifistedModalComponent  implements OnInit {
+export class NotManifistedModalComponent  {
 
-  constructor() { }
-
-  ngOnInit() {}
 
 }

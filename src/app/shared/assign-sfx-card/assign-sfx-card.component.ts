@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ModalController } from '@ionic/angular';
@@ -12,8 +12,8 @@ import { WaybillListPopupComponent } from '../waybill-list-popup/waybill-list-po
   styleUrls: ['./assign-sfx-card.component.scss'],
   imports:[IonCard,IonSelect,IonSelectOption,FormsModule,CommonModule,IonicModule]
 })
-export class AssignSfxCardComponent  implements OnInit {
-
+export class AssignSfxCardComponent {
+  private modalCtrl = inject(ModalController);
 
   selectedLocation = 'DELHI-11';
   locations = ['DELHI-11', 'MUMBAI-22', 'BANGALORE-33'];
@@ -32,10 +32,7 @@ export class AssignSfxCardComponent  implements OnInit {
   draftWaybillsTotal = 100;
   draftWaybillsPercent = (this.draftWaybillsCount / this.draftWaybillsTotal) * 100;
 
-  constructor(private modalCtrl: ModalController) {}
-
-  ngOnInit() {
-  }
+  /** Inserted by Angular inject() migration for backwards compatibility */
 
   openZeroPickupPopup() {
     this.openWaybillPopup('Zero Pickup SFX', [

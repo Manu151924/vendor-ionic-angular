@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { ModalController, IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 
@@ -146,9 +146,12 @@ import { CommonModule } from '@angular/common';
   imports: [IonicModule, CommonModule],
 })
 export class ZeroPickupModalComponent {
+  private modalCtrl = inject(ModalController);
+
   @Input() zeroPickupData: any[] = [];
 
-  constructor(private modalCtrl: ModalController) {}
+  /** Inserted by Angular inject() migration for backwards compatibility */
+
 
   close() {
     this.modalCtrl.dismiss();

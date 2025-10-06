@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { ModalController, IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
@@ -12,10 +12,14 @@ import { close} from 'ionicons/icons';
   imports: [IonicModule, CommonModule],
 })
 export class ShExModalComponent {
+  private modalCtrl = inject(ModalController);
+
   @Input() shExDetails: any[] = [];
   @Input() selectedVehicle: string = '';
 
-  constructor(private modalCtrl: ModalController) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+
+  constructor() {
     addIcons({close})
   }
 

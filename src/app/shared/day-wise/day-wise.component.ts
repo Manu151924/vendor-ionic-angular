@@ -5,10 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './day-wise.component.html',
   styleUrls: ['./day-wise.component.scss'],
 })
-export class DayWiseComponent  implements OnInit {
+export class DayWiseComponent  {
 
-  constructor() { }
 
-  ngOnInit() {}
 
 }

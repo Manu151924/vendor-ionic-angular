@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { ModalController, IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 
@@ -15,7 +15,8 @@ import { CommonModule } from '@angular/common';
     </ion-header>
 
 <ion-content class="ion-padding notman-list">
-  <div *ngFor="let item of notManifestedData" class="notman-card">
+  @for (item of notManifestedData; track item.waybill ){
+  <div class="notman-card">
     <div class="notman-row">
       <div>
         <span class="wb-label">WB#</span>
@@ -33,6 +34,9 @@ import { CommonModule } from '@angular/common';
       <span class="consignor-value">{{ item.consignor || 'Unknown' }}</span>
     </div>
   </div>
+
+  }
+
 </ion-content>
 
   `,
@@ -106,6 +110,8 @@ import { CommonModule } from '@angular/common';
   imports: [IonicModule, CommonModule]
 })
 export class NotManifestedModalComponent {
+  private modalCtrl = inject(ModalController);
+
   @Input() notManifestedData: {
     waybill: string,
     consignor: string,
@@ -114,8 +120,6 @@ export class NotManifestedModalComponent {
     remaining: number,
     pickupDate: string
   }[] = [];
-
-  constructor(private modalCtrl: ModalController) {}
 
   close() {
     this.modalCtrl.dismiss();

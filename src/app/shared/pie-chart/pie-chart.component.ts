@@ -5,10 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.scss'],
 })
-export class PieChartComponent  implements OnInit {
+export class PieChartComponent  {
 
-  constructor() { }
-
-  ngOnInit() {}
 
 }

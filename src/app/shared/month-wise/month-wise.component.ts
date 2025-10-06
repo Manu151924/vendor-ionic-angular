@@ -5,10 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './month-wise.component.html',
   styleUrls: ['./month-wise.component.scss'],
 })
-export class MonthWiseComponent  implements OnInit {
+export class MonthWiseComponent  {
 
-  constructor() { }
-
-  ngOnInit() {}
 
 }

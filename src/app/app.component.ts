@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 
@@ -8,7 +8,10 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
- constructor(private router: Router) {
+ private router = inject(Router);
+
+
+ constructor() {
   this.router.events.subscribe(event => {
     if (event instanceof NavigationStart) {
       if (document.activeElement instanceof HTMLElement) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,10 +14,10 @@ import { IonContent, IonItem, IonLabel, IonButton, IonInput, ToastController, Io
     CommonModule, FormsModule
   ]
 })
-export class LoginPage implements OnInit {
-  constructor(private router: Router, private toastCtrl: ToastController) {}
+export class LoginPage {
+  private router = inject(Router);
+  private toastCtrl = inject(ToastController);
 
-  ngOnInit() {}
 
   email: string = '';
   otp: string = '';

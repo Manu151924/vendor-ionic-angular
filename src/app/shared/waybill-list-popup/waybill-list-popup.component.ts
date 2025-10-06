@@ -5,10 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './waybill-list-popup.component.html',
   styleUrls: ['./waybill-list-popup.component.scss'],
 })
-export class WaybillListPopupComponent  implements OnInit {
+export class WaybillListPopupComponent  {
 
-  constructor() { }
 
-  ngOnInit() {}
 
 }
