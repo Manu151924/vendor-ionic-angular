@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, ViewChild } from '@angular/core';
-import { IonContent, IonCard, IonDatetime, IonModal, IonItem, IonIcon , IonSelect,IonSelectOption, IonNote, IonButton, IonToolbar, IonFooter, IonButtons, IonList, IonLabel } from "@ionic/angular/standalone";
+import { IonContent, IonCard, IonModal, IonItem, IonIcon , IonSelect,IonSelectOption, IonNote, IonButton, IonToolbar, IonFooter, IonButtons, IonList, IonLabel } from "@ionic/angular/standalone";
 import { Color, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
 import { MatNativeDateModule } from '@angular/material/core'; 
 import { FormsModule } from '@angular/forms';
@@ -38,8 +38,7 @@ export class DeliveryPage implements OnInit {
   selectedDate!: Date;
   tempSelectedDate!: Date;
   displayDate: string = 'Today';
-     selectedMonths: Date = new Date();;
-
+  selectedMonths: Date = new Date();
   maxDate!: Date;
   minDate!: Date;
   selectedCity: string = this.cities[0];

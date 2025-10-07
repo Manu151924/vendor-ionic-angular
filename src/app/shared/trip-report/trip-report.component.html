@@ -1,4 +1,8 @@
 
+<ion-button class="today-btn" fill="solid" color="success" (click)="openCalendar()">
+      {{ displayDate }}
+    <ion-icon name="calendar" slot="end"></ion-icon>
+</ion-button>
 <div class="trip-report-card">
   <div class="header-row">
     <div class="card-title">
@@ -64,15 +68,28 @@
     </table>
   </div>
 </div>
-<ion-modal [isOpen]="calendarOpen" (didDismiss)="calendarOpen = false">
-  <ion-content>
-    <!-- Your datepicker here -->
-    <ion-datetime 
-      [min]="minDate" 
-      [max]="maxDate"
-      [value]="selectedDate"
-      [presentation]="'date'"
-      (ionChange)="changeDate($event)">
-    </ion-datetime>
-  </ion-content>
+  <ion-modal [isOpen]="calendarOpen">
+  <ng-template>
+    <ion-content>
+      <div class="calendar-container">
+        <mat-calendar
+          [selected]="tempSelectedDate"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
+          (selectedChange)="onDateSelect($event)">
+        </mat-calendar>
+      </div>
+    </ion-content>
+
+    <ion-footer>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancelDate()">Cancel</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button (click)="confirmDate()">OK</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-footer>
+  </ng-template>
 </ion-modal>

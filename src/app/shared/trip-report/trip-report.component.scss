@@ -45,14 +45,6 @@
     margin-left: 7px;
     margin-right: 13px;
   }
-  .today-btn {
-    margin-left: auto;
-    font-size: 14px;
-    --background: #22b543;
-    --color: #fff;
-    --box-shadow: none;
-    --border-radius: 6px;
-  }
 }
 
 .status-section {
@@ -89,3 +81,7 @@
 .amber { color: #ff9300 !important; }
 tr:last-child td { border-bottom: none; }
 tr td:last-child, tr th:last-child { border-right: none; }
+.today-btn {
+  position: relative;
+  left: 20rem;
+}
