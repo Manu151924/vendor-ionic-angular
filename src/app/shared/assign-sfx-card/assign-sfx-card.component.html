@@ -2,7 +2,10 @@
 <ion-card class="assign-sfx-card">
   <div class="header-row">
     <ion-select class="location-select" interface="popover" [(ngModel)]="selectedLocation">
-      <ion-select-option *ngFor="let location of locations">{{ location }}</ion-select-option>
+      @for (location of locations; track location){
+        <ion-select-option>{{ location }}</ion-select-option>
+      }
+      
     </ion-select>
     <div class="assigned-sfx">
       Assigned SFX <span class="assigned-sfx-value">{{ assignedSFX }}</span>

@@ -15,7 +15,8 @@ import { CommonModule } from '@angular/common';
     </ion-header>
 
 <ion-content class="ion-padding zero-pickup-list-container">
-  <div *ngFor="let item of zeroPickupData" class="zero-pickup-card">
+  @for(item of zeroPickupData; track item){
+    <div  class="zero-pickup-card">
     <div class="zero-pickup-row">
       <div class="zp-label">SFX Code</div>
       <div class="zp-value">{{ item.code }}</div>
@@ -27,6 +28,7 @@ import { CommonModule } from '@angular/common';
       <div class="zp-consignor-value">{{ item.consignor }}</div>
     </div>
   </div>
+  }
 </ion-content>
 
   `,

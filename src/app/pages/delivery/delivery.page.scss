@@ -17,9 +17,9 @@
 .custom-dropdown {
     border: 4px solid #17a04d;
     border-radius: 18px;
-    max-width: 10rem;
-    left: -16px;
-    top: -21px;
+    max-width: 26rem;
+    left: -23px;
+    top: -20px;
     --background: transparent;
 }
 .custom-dropdown ion-icon {
@@ -27,22 +27,20 @@
   margin-right: 2px;
 }
 .header-dropdown {
-  min-width: 100px;
-  font-weight: bold;
+  min-width: 100px;  
   color: #17a04d;
 }
 
 .header-note {
-  font-size: 12px;
+  font-size: 9px;
   padding: 4px 8px;
   border-radius: 6px;
-  background: #eee;
-  font-weight: bold;
+  background: #eee;  
 }
 
 .subtitle {
   margin-top: 8px;
-  font-weight: bold;
+  
 }
 
 .side-label {
@@ -53,14 +51,14 @@ position: absolute;
     color: #a8a8a8;
     writing-mode: vertical-rl;
     transform: rotate(180deg);
-    font-weight: bold;
+    
 }
 
 .footer-label {
   text-align: center;
   color: #17a04d;
   font-size: 12px;
-  font-weight: 500;
+  
   padding-top: 4px;
 }
 .status-bar-row {
@@ -72,9 +70,10 @@ position: absolute;
 }
 
 .status-pill {
-background: #565656;
+    background: #565656;
     color: #fff;
-    font-size: 14px;
+    font-size: 9px;
+    width: 29rem;
     border-radius: 7px 0 0 7px;
     height: 38px;
     display: flex;
@@ -87,7 +86,7 @@ background: #565656;
 
 .undelivered-label {
   margin-left: 18px;
-  font-weight: 600;
+  // font-weight: 600;
   letter-spacing: 0.5px;
 }
 
@@ -107,12 +106,12 @@ background: #565656;
   border-radius: 6px;
   background: rgb(170, 169, 169);
   color: #fff;
-  font-weight: bold;
+  
 }
 
 ion-button {
   min-width: 92px;
-  font-weight: bold;
+  
   border-radius: 6px;
 }
 
@@ -161,7 +160,7 @@ ion-button {
 .section-title {
   font-size: 15px;
   color: #444;
-  font-weight: 600;
+  // font-weight: 600;
   margin-bottom: 6px;
   display: flex;
   align-items: center;
@@ -170,7 +169,7 @@ ion-button {
 
 .big-count {
   font-size: 1.8em;
-  font-weight: bold;
+  
   margin-left: 60px;
 }
 
@@ -190,14 +189,14 @@ ion-button {
   display: grid;
   grid-template-columns: 1.6fr 2.5fr 1.6fr 0.7fr;
   font-size: 14px;
-  font-weight: 500;
+  
   color: #222;
   align-items: center;
   padding: 1.5px 0;
 }
 
 .table-row span:first-child {
-  font-weight: 600;
+  font-weight: 200;
 }
 
 .table-row span:nth-child(2) {
@@ -217,13 +216,13 @@ ion-button {
 .absent-table .table-list .table-row {
   grid-template-columns: 1.6fr 3fr;
   font-size: 14px;
-  font-weight: 500;
+  
   align-items: center;
   padding: 4px 0;
 }
 
 .absent-table .table-list .table-row span:first-child {
-  font-weight: 600;
+  font-weight: 200;
 }
 
 .expand-indicator {
@@ -270,7 +269,7 @@ ion-button {
 
 .kpi-main {
   font-size: 1.5em; 
-  font-weight: bold; 
+   
   margin-bottom: 3px;
 }
 .kpi-label {
@@ -283,17 +282,17 @@ ion-button {
 }
 .snapshot-card { border-radius: 15px; box-shadow: 0 2px 10px #ccc; padding: 16px 20px 10px 20px; background: #fff;}
 .snapshot-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.snapshot-title { font-weight: 600; color: #444; font-size: 15px; }
+.snapshot-title { font-weight: 200; color: #444; font-size: 15px; }
 .snapshot-dropdown { border-radius: 7px; height: 30px; font-size: 14px; --background: #17a04d; --color: #fff; }
 .snapshot-content { display: flex; gap: 16px; }
 .donut-section { min-width: 130px; display: flex; flex-direction: column; align-items: center; }
 .donut-legend { margin-top: 6px; font-size: 13px; display: flex; flex-direction: column; gap: 8px; }
-.delivered-label, .undelivered-label { font-weight: bold; color: #222; }
+.delivered-label, .undelivered-label {  color: #222; }
 .donut-stats { color: #666; font-size: 12px; }
 .snapshot-bars { flex: 2; display: flex; flex-direction: column; gap: 10px; margin-left: 18px; }
 .bar-section { margin-bottom: 2px; }
 .bar-label-row { display: flex; align-items: center; justify-content: space-between; }
-.bar-title { color: #222; font-weight: 600; font-size: 13px; }
+.bar-title { color: #222; font-weight: 200; font-size: 13px; }
 .bar-bg {
   width: 210px;
   height: 18px;
@@ -319,7 +318,7 @@ ion-button {
   width: 70%;
   background: linear-gradient(90deg, #8bc34a, #f9a825, #e53935);
 }
-.bar-percentage.green { color: #23b887; font-weight: 700; font-size: 15px; }
+.bar-percentage.green { color: #23b887; font-weight: 500; font-size: 15px; }
 .progress-wrapper {
   position: relative;
   width: 90%;
@@ -354,7 +353,7 @@ ion-button {
   top: 35px;
   right: 0;
   font-size: 16px;
-  font-weight: bold;
+  
   color: #444;
 }
 

@@ -12,9 +12,8 @@
 </ion-header>
 
 <ion-content class="ion-padding sh-ex-list-container">
-  <div *ngFor="let item of shExDetails" 
-       class="sh-ex-card"
-       [ngClass]="{'short': item.status === 'Short', 'excess': item.status === 'Exess'}">
+  @for(item of shExDetails; track item){
+    <div  class="sh-ex-card" [ngClass]="{'short': item.status === 'Short', 'excess': item.status === 'Exess'}">
     <div class="sh-ex-row">
       <div class="sh-label">WB#</div>
       <div class="sh-value">{{ item.waybill }}</div>
@@ -29,10 +28,14 @@
     <div class="sh-consignor-row">
       <span class="sh-consignor-label">Consignor</span>
       <span class="sh-consignor-value">{{ item.consignor }}</span>
-      <span *ngIf="item.status === 'Short'" class="sh-chip short">Short</span>
-      <span *ngIf="item.status === 'Exess'" class="sh-chip excess">Exess</span>
+      @if(item.status === 'Short'){
+        <span class="sh-chip short">Short</span>        
+      } @else  {
+        <span class="sh-chip excess">Exess</span>
+      }      
     </div>
   </div>
+  }
 
 <ng-template #noData>
     <ion-text color="medium" class="ion-text-center">

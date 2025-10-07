@@ -32,9 +32,35 @@
     <span class="undelivered-label">UN-DELIVERED: 120</span>
   </div>
   <ion-button class="today-btn" fill="solid" color="success" (click)="openCalendar()">
-    Today
+      {{ displayDate }}
     <ion-icon name="calendar" slot="end"></ion-icon>
   </ion-button>
+  <ion-modal [isOpen]="calendarOpen">
+  <ng-template>
+    <ion-content>
+      <div class="calendar-container">
+        <mat-calendar
+          [selected]="tempSelectedDate"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
+          (selectedChange)="onDateSelect($event)">
+        </mat-calendar>
+      </div>
+    </ion-content>
+
+    <ion-footer>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancelDate()">Cancel</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button (click)="confirmDate()">OK</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-footer>
+  </ng-template>
+</ion-modal>
+
 </div>
 
 
@@ -86,6 +112,8 @@
 </div>
 
 
+</div>
+
   <div class="kpi-row">
     <div class="kpi-card">
       <div class="kpi-main red">₹ 52,348.00</div>
@@ -115,39 +143,28 @@
       <div class="kpi-label">Safedrop Usage <span class="mini">(Today)</span></div>
     </div>
   </div>
-</div>
 
 
-<!-- Use ion-datetime for calendar modal -->
-<ion-modal [isOpen]="calendarOpen" (ionModalDidDismiss)="calendarOpen = false">
-  <ion-content>
-<ion-datetime
-  [max]="maxDate"
-  [min]="minDate"
-  [value]="selectedDate.toISOString()"
-  (ionChange)="tempSelectedDate = $event.detail.value">
-</ion-datetime>
-
-
-    <ion-footer>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-button (click)="cancelDate()">Cancel</ion-button>
-        </ion-buttons>
-        <ion-buttons slot="end">
-          <ion-button (click)="confirmDate()">OK</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-footer>
-  </ion-content>
-</ion-modal>
 <ion-card class="snapshot-card">
   <div class="snapshot-header">
     <span class="snapshot-title">Month Wise Snapshot</span>
-    <ion-button class="snapshot-dropdown" fill="solid" color="success" size="small">
-      Aug-24
-      <ion-icon name="chevron-down-outline" slot="end"></ion-icon>
-    </ion-button>
+<ion-button class="snapshot-dropdown" fill="solid" color="success" size="small" (click)="openMonthPicker()">
+  {{ formatMonth(selectedMonth) }}
+  <ion-icon name="chevron-down-outline" slot="end"></ion-icon>
+</ion-button>
+<mat-form-field appearance="fill" style="display: none;">
+  <input
+    matInput
+    [matDatepicker]="monthPicker"
+    [min]="minDate"
+    [max]="maxDate"
+    [value]="selectedMonth"
+    readonly
+  >
+  <mat-datepicker #monthPicker startView="multi-year" (monthSelected)="chosenMonthHandler($event, monthPicker)" panelClass="month-picker"></mat-datepicker>
+</mat-form-field>
+
+
   </div>
   <div class="snapshot-content">
     <div class="donut-section">

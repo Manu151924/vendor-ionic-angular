@@ -24,10 +24,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr 
-          *ngFor="let ts of tripStatusRows; let i = index"
-          [class.unloaded]="ts.notUnloaded"
-        >
+        @for(ts of tripStatusRows; track ts){
+          <tr [class.unloaded]="ts.notUnloaded">
           <td>{{ ts.vehicle.slice(-4) }}</td>
           <td>
             <span [ngClass]="getAmberClass(ts.mfVsUldWB, ts.mfManifestWB)">
@@ -43,6 +41,7 @@
             <span [class.red]="ts.shEx>0" (click)="openShExModal(selectedVehicle)">{{ ts.shEx>0 ? ts.shEx : '-' }}</span>
           </td>
         </tr>
+        }
       </tbody>
     </table>
     <table class="absent-table">
@@ -53,10 +52,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let ab of absentRows">
+        @for(ab of absentRows; track ab){
+         <tr>
           <td>{{ ab.vehicleNo }}</td>
           <td>{{ ab.lastPickup }}</td>
         </tr>
+
+        }
+
       </tbody>
     </table>
   </div>

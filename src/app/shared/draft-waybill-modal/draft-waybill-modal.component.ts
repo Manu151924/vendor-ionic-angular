@@ -15,7 +15,8 @@ import { CommonModule } from '@angular/common';
     </ion-header>
 
 <ion-content class="ion-padding draft-waybills-list-container">
-  <div *ngFor="let item of draftWaybillsData" class="draft-waybills-card">
+  @for(item of draftWaybillsData; track item){
+      <div class="draft-waybills-card">
     <div class="draft-waybills-row">
       <div class="dwb-label">WB#</div>
       <div class="dwb-value">{{ item.waybill }}</div>
@@ -27,6 +28,9 @@ import { CommonModule } from '@angular/common';
       <span class="dwb-consignor-value">{{ item.consignor }}</span>
     </div>
   </div>
+    
+  }
+
 </ion-content>
 
   `,

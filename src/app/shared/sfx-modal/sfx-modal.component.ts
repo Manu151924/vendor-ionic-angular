@@ -16,20 +16,22 @@ import { CommonModule } from '@angular/common';
 
     <ion-content class="ion-padding">
       <div class="sfx-list-container">
-        <div *ngFor="let item of assignedSfxData" class="sfx-card">
-          <div class="sfx-row">
-            <div class="sfx-label">SFX Code</div>
-            <div class="sfx-value">{{ item.code }}</div>
-            <div class="pickup-info">
-      <div class="pickup-label">LAST PICKUP DATE</div>
-      <div class="pickup-value">{{ item.lastPickupDate }}</div>
-    </div>
-          </div>
-          <div class="sfx-row consignor-row">
-            <div class="sfx-label">Consignor</div>
-            <div class="sfx-value consignor">{{ item.consignor }}</div>
-          </div>
+        @for(item of assignedSfxData; track item){
+          <div class="sfx-card">
+            <div class="sfx-row">
+              <div class="sfx-label">SFX Code</div>
+              <div class="sfx-value">{{ item.code }}</div>
+              <div class="pickup-info">
+              <div class="pickup-label">LAST PICKUP DATE</div>
+              <div class="pickup-value">{{ item.lastPickupDate }}</div>
+            </div>
+            </div>
+            <div class="sfx-row consignor-row">
+              <div class="sfx-label">Consignor</div>
+              <div class="sfx-value consignor">{{ item.consignor }}</div>
+            </div>
         </div>
+        }
       </div>
     </ion-content>
   `,

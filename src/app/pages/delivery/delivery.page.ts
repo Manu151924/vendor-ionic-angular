@@ -1,9 +1,14 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { IonContent, IonCard, IonDatetime, IonModal, IonItem, IonIcon , IonSelect,IonSelectOption, IonNote, IonButton, IonToolbar, IonFooter, IonButtons } from "@ionic/angular/standalone";
+import { ChangeDetectionStrategy, Component, inject, OnInit, ViewChild } from '@angular/core';
+import { IonContent, IonCard, IonDatetime, IonModal, IonItem, IonIcon , IonSelect,IonSelectOption, IonNote, IonButton, IonToolbar, IonFooter, IonButtons, IonList, IonLabel } from "@ionic/angular/standalone";
 import { Color, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
+import { MatNativeDateModule } from '@angular/material/core'; 
 import { FormsModule } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
+import { MatDatepicker } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { checkmarkOutline, chevronDownOutline, chevronUpOutline, location, calendar, carOutline, checkboxOutline, shieldCheckmark, document } from 'ionicons/icons';
 
@@ -23,21 +28,30 @@ interface AbsentVehicle {
   selector: 'app-delivery',
   templateUrl: './delivery.page.html',
   styleUrls: ['./delivery.page.scss'],
-  imports :[IonContent,IonCard, IonDatetime, IonModal,IonItem, IonIcon,IonSelect,IonSelectOption, IonNote, IonButton, IonToolbar, IonFooter, IonButtons,FormsModule,NgxChartsModule,CommonModule],
+  imports: [ IonContent, IonCard, IonItem,IonModal,MatDatepickerModule,MatFormFieldModule,IonToolbar, IonFooter, IonButtons,MatInputModule,MatNativeDateModule, IonIcon, IonSelect, IonSelectOption, IonNote, IonButton, FormsModule, NgxChartsModule, CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DeliveryPage implements OnInit {
 
   cities: string[] = ['Delhi', 'Mumbai', 'Hyderabad', 'Chennai'];
-  selectedCity: string = this.cities[0];
-  selectedDate: Date = new Date();
-  tempSelectedDate?: string | string[] | null;
   calendarOpen = false;
-  minDate: string;
-  maxDate: string;
-  selectedMonth: string = ''; 
+  selectedDate!: Date;
+  tempSelectedDate!: Date;
+  displayDate: string = 'Today';
+     selectedMonths: Date = new Date();;
+
+  maxDate!: Date;
+  minDate!: Date;
+  selectedCity: string = this.cities[0];
+  selectedMonth: Date = new Date(); 
+  monthPickerOpen = false;
+  availableMonths: string[] = [];
   validMonths: string[] = []; 
   private toastController = inject(ToastController);
+  @ViewChild('picker') datepicker!: MatDatepicker<Date>;
+    @ViewChild('monthPicker') monthPicker!: MatDatepicker<Date>;
+
+ 
   barData = [
     { name: 'DWARKA', value: 100 },
     { name: 'KAROLBAGH', value: 80 },
@@ -46,8 +60,8 @@ export class DeliveryPage implements OnInit {
     { name: 'VASANTKUNJ', value: 32 }
   ];
   ngOnInit(): void {
-    this.selectedMonth = this.formatMonthYear(this.today);
-    this.loadDataForMonth(this.selectedMonth);
+    this.selectedMonths = this.today;
+    this.setDateRange();
   }
 
   colorScheme: Color = {
@@ -89,27 +103,83 @@ export class DeliveryPage implements OnInit {
   today = new Date();
   constructor() {
     addIcons({checkmarkOutline, location, chevronUpOutline, chevronDownOutline, calendar, carOutline, checkboxOutline, shieldCheckmark, document})
-    const today = new Date();
-    this.maxDate = today.toISOString().split('T')[0];
-    const min = new Date();
-    min.setMonth(today.getMonth() - 1); 
-    this.minDate = min.toISOString().split('T')[0];
     this.updateDisplayedData();
   }
+  setDateRange() {
+    const today = new Date();
+    this.maxDate = today; 
+    const min = new Date();
+    min.setMonth(today.getMonth() - 12); 
+    this.minDate = min;
+
+  const currentYear = this.today.getFullYear();
+  const currentMonth = this.today.getMonth();
+  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+  this.availableMonths = [];
+  for (let m = 0; m <= currentMonth; m++) {
+    this.availableMonths.push(`${monthNames[m]}-${currentYear.toString().slice(-2)}`);
+  }
+  }
+
   openCalendar() {
+    this.tempSelectedDate = this.selectedDate; 
     this.calendarOpen = true;
   }
-  cancelDate() {
+
+  onModalDidPresent() {
+    if (this.datepicker) {
+      this.datepicker.open();
+    }
+  }
+  chosenMonthHandler(normalizedMonth: Date, datepicker: MatDatepicker<Date>) {
+    this.selectedMonth = normalizedMonth;
+    datepicker.close();
+    this.loadDataForMonth(this.selectedMonth);
+  }
+  formatMonth(date: Date): string {
+    return date.toLocaleString('default', { month: 'short', year: '2-digit' });
+  }
+
+
+ cancelDate() {
+    this.tempSelectedDate = this.selectedDate;
+    this.displayDate = this.formatDisplayDate(this.selectedDate);
     this.calendarOpen = false;
   }
-  confirmDate() {
-    if (this.tempSelectedDate) {
-      const dateStr = Array.isArray(this.tempSelectedDate)
-        ? this.tempSelectedDate[0]
-        : this.tempSelectedDate;
-      this.selectedDate = new Date(dateStr);
-    }
+    onDateSelect(date: Date) {
+    this.tempSelectedDate = date;
+    this.displayDate = this.formatDisplayDate(date); // live update
+  }
+
+    confirmDate() {
+    this.selectedDate = this.tempSelectedDate;
     this.calendarOpen = false;
+  }
+
+  onDateChange(event: any) {
+    this.tempSelectedDate = event.value;            // Update temp date
+    this.displayDate = this.formatDisplayDate(this.tempSelectedDate); // Update button dynamically
+  }
+formatDisplayDate(date?: Date): string {
+  if (!date) return 'Today'; // default fallback
+
+  const today = new Date();
+  if (
+    date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()
+  ) {
+    return 'Today';
+  }
+  // Format: DD-MM-YYYY
+  return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth()+1)
+    .toString().padStart(2,'0')}-${date.getFullYear()}`;
+}
+
+
+  updateDisplayed() {
+    console.log('Load data for:', this.selectedDate.toDateString());
   }
   toggleExpansion() {
     this.isExpanded = !this.isExpanded;
@@ -144,31 +214,9 @@ export class DeliveryPage implements OnInit {
     if (this.progressValue < 0.7) return '🙂';
     return '😄';
   }
-  formatMonthYear(date: Date): string {
-    const options = { year: '2-digit', month: 'short' } as const;
-    return date.toLocaleDateString('en-US', options).replace(',', '');
-  }
 
-  isFutureMonth(monthStr: string): boolean {
-    const [mon, yr] = monthStr.split('-');
-    const yearFull = 2000 + parseInt(yr, 10);
-    const monthNumber = new Date(Date.parse(mon + " 1, " + yearFull)).getMonth();
-    const monthDate = new Date(yearFull, monthNumber, 1);
-    return monthDate > this.today;
-  }
 
-  loadDataForMonth(monthStr: string) {
-    if (this.isFutureMonth(monthStr)) {
-      this.selectedMonth = this.formatMonthYear(this.today);
-        this.showToast('Future months cannot be selected');
 
-      return;
-    }
-    this.pieChartData = [
-      { name: 'Delivered', value: 370 },
-      { name: 'Booked', value: 20  }
-    ];
-  }
   async showToast(message: string) {
   const toast = await this.toastController.create({
     message,
@@ -177,5 +225,49 @@ export class DeliveryPage implements OnInit {
     position: 'top'
   });
   toast.present();
+  }
+formatMonthYear(date: Date): string {
+  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return `${monthNames[date.getMonth()]}-${date.getFullYear().toString().slice(-2)}`;
+}
+  openMonthPicker() {
+    if (this.monthPicker) {
+      this.monthPicker.open();
+    }
+  }
+
+
+isFutureMonth(monthStr: string): boolean {
+  const [mName, yStr] = monthStr.split('-');
+  const monthIndex = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].indexOf(mName);
+  const year = 2000 + parseInt(yStr); // e.g., "25" -> 2025
+  const selectedDate = new Date(year, monthIndex, 1);
+
+  return selectedDate > this.today;
+}
+
+// Load month data
+// loadDataForMonth(monthStr: string) {
+//   if (this.isFutureMonth(monthStr)) {
+//     this.selectedMonth = this.formatMonthYear(this.today);
+//     this.showToast('Future months cannot be selected');
+//     return;
+//   }
+
+//   // Example chart data
+//   this.pieChartData = [
+//     { name: 'Delivered', value: 370 },
+//     { name: 'Booked', value: 20 }
+//   ];
+// }
+  loadDataForMonth(date: Date) {
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    console.log(`Loading data for: ${month}-${year}`);
+    // Add your chart/data logic here
+    this.pieChartData = [
+    { name: 'Delivered', value: 370 },
+    { name: 'Booked', value: 20 }
+  ];
   }
 }
