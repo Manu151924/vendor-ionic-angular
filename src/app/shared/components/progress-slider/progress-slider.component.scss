@@ -1,0 +1,36 @@
+.progress-wrapper {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.progress-bar {
+  height: 20px;
+  border-radius: 15px;
+  overflow: hidden;
+  background: linear-gradient(to right, red, orange, green);
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: transparent; 
+  transition: width 0.3s ease-in-out;
+}
+
+.progress-emoji {
+  position: absolute;
+  top: -35px;
+  transform: translateX(-50%);
+  font-size: 32px;
+  transition: left 0.3s ease-in-out;
+}
+
+.progress-text {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  font-size: 16px;  
+  color: #444;
+}

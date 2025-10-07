@@ -32,11 +32,9 @@ export class AssignSfxCardComponent {
   draftWaybillsTotal = 100;
   draftWaybillsPercent = (this.draftWaybillsCount / this.draftWaybillsTotal) * 100;
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
 
   openZeroPickupPopup() {
     this.openWaybillPopup('Zero Pickup SFX', [
-      // Example data
       { waybillNo: 'WB12345', lastPickupDate: '2025-10-01', sfxCode: 'SFX01', consignorName: 'Consignor A' },
       { waybillNo: 'WB12346', lastPickupDate: '2025-10-01', sfxCode: 'SFX02', consignorName: 'Consignor B' }
     ]);
@@ -44,7 +42,6 @@ export class AssignSfxCardComponent {
 
   openNotManifestedPopup() {
     this.openWaybillPopup('Not Manifested', [
-      // Example data
       { waybillNo: 'WB23456', pickupDate: '2025-09-30', consignorName: 'Consignor C', bookedPkgs: 10, manifestedPkgs: 7, remainingPkgs: 3 },
       { waybillNo: 'WB23457', pickupDate: '2025-09-30', consignorName: 'Consignor D', bookedPkgs: 5, manifestedPkgs: 5, remainingPkgs: 0 }
     ]);
@@ -52,7 +49,6 @@ export class AssignSfxCardComponent {
 
   openDraftWaybillsPopup() {
     this.openWaybillPopup('Draft Waybills', [
-      // Example data
       { waybillNo: 'WB34567', consignorName: 'Consignor E', bookedPkgs: 3, totalPkgs: 5 }
     ]);
   }

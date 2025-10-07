@@ -6,11 +6,12 @@ import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
 import { addIcons } from 'ionicons';
 import { busOutline, swapHorizontalOutline, lockClosedOutline, readerOutline, checkmarkOutline, location } from 'ionicons/icons';
 import { ToastController,ModalController } from '@ionic/angular';
-import { DraftWaybillsModalComponent } from 'src/app/shared/draft-waybill-modal/draft-waybill-modal.component';
-import { NotManifestedModalComponent } from 'src/app/shared/not-maintained-modal/not-maintained-modal.component';
-import { SfxModalComponent } from 'src/app/shared/sfx-modal/sfx-modal.component';
-import { ZeroPickupModalComponent } from 'src/app/shared/zero-pickup-modal/zero-pickup-modal.component';
-import { TripReportComponent } from "src/app/shared/trip-report/trip-report.component";
+import { TripReportComponent } from 'src/app/shared/components/trip-report/trip-report.component';
+import { DraftWaybillsModalComponent } from 'src/app/shared/modal/draft-waybill-modal/draft-waybill-modal.component';
+import { NotManifestedModalComponent } from 'src/app/shared/modal/not-maintained-modal/not-maintained-modal.component';
+import { SfxModalComponent } from 'src/app/shared/modal/sfx-modal/sfx-modal.component';
+import { ZeroPickupModalComponent } from 'src/app/shared/modal/zero-pickup-modal/zero-pickup-modal.component';
+
 
 interface SfxData {
   code: string;

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { MonthWiseComponent } from './month-wise.component';
+import { TripStatusTableComponent } from './trip-status-table.component';
 
-describe('MonthWiseComponent', () => {
-  let component: MonthWiseComponent;
-  let fixture: ComponentFixture<MonthWiseComponent>;
+describe('TripStatusTableComponent', () => {
+  let component: TripStatusTableComponent;
+  let fixture: ComponentFixture<TripStatusTableComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MonthWiseComponent ],
+      declarations: [ TripStatusTableComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MonthWiseComponent);
+    fixture = TestBed.createComponent(TripStatusTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -1,0 +1,16 @@
+<div class="absent-table">
+  <div class="section-title">
+    <ion-icon name="car-outline"></ion-icon>
+    <span>Absent</span>
+    <span class="big-count red">{{ total }}</span>
+  </div>
+
+  <div class="table-list">
+    @for(a of vehicles; track a.vehNo){
+    <div class="table-row">
+      <span class="veh">{{ a.vehNo }}</span>&nbsp;&nbsp;
+      <span class="date">{{ a.lastTripDate }}</span>
+    </div>
+    }
+  </div>
+</div>

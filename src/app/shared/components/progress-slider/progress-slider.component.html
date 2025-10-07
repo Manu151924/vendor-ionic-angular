@@ -1,0 +1,12 @@
+<div class="progress-wrapper"
+       (mousedown)="startDrag($event)"
+       (mousemove)="onDrag($event)"
+       (mouseup)="endDrag()"
+       (mouseleave)="endDrag()"
+       #wrap>
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="value * 100"></div>
+    </div>
+    <div class="progress-emoji" [style.left.%]="value * 100">{{ face }}</div>
+    <div class="progress-text">{{ (value * 100) | number: '1.0-0' }}%</div>
+</div>

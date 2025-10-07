@@ -1,0 +1,32 @@
+.absent-table {
+  flex: 1;
+  min-width: 0;
+}
+.section-title {
+  font-size: 15px;
+  color: #444;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.big-count {
+  font-size: 1.8em;  
+  margin-left: 60px;
+}
+
+.red {
+  color: #ea3030;
+}
+.absent-table .table-list .table-row {
+  grid-template-columns: 1.6fr 3fr;
+  font-size: 14px;
+  
+  align-items: center;
+  padding: 4px 0;
+}
+
+.absent-table .table-list .table-row span:first-child {
+  font-weight: 200;
+}

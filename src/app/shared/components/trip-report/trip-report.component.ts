@@ -9,8 +9,7 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ShExModalComponent } from '../sh-ex-modal/sh-ex-modal.component';
-
+import { ShExModalComponent } from '../../modal/sh-ex-modal/sh-ex-modal.component';
 
 @Component({
   selector: 'app-trip-report',
